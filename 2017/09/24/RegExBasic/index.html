@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="正则表达式,JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="啥是正则表达式？ 正则就是用有限的符号，表达无限的序列。">
+<meta name="keywords" content="正则表达式,JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="正则表达式(基础篇)">
+<meta property="og:url" content="http://leeper.online/myblog/2017/09/24/RegExBasic/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="啥是正则表达式？ 正则就是用有限的符号，表达无限的序列。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-24T11:15:19.114Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="正则表达式(基础篇)">
+<meta name="twitter:description" content="啥是正则表达式？ 正则就是用有限的符号，表达无限的序列。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/09/24/RegExBasic/"/>
+
+
+
+
+
+  <title>正则表达式(基础篇) | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/24/RegExBasic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">正则表达式(基础篇)</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T19:15:19+08:00">
+                2017-09-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
+<p>正则就是用有限的符号，表达无限的序列。</p>
+</blockquote>
+</li>
+</ul>
+<a id="more"></a>
+<p>  记住一句重要的话，<strong>正则表达式是匹配模式，要么匹配字符，要么匹配位置。</strong></p>
+<ul>
+<li><h3 id="精确匹配"><a href="#精确匹配" class="headerlink" title="精确匹配"></a>精确匹配</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/abc/ <span class="comment">// 匹配 abc</span></div><div class="line">/<span class="number">123</span>/ <span class="comment">// 匹配 123</span></div></pre></td></tr></table></figure>
+<p>正则的强大在于它能实现模糊匹配。</p>
+</li>
+<li><h3 id="模糊匹配："><a href="#模糊匹配：" class="headerlink" title="模糊匹配："></a>模糊匹配：</h3><p>模糊匹配可分为：<strong>横向匹配</strong>和<strong>纵向匹配</strong>。</p>
+<h4 id="1-横向模糊匹配："><a href="#1-横向模糊匹配：" class="headerlink" title="1. 横向模糊匹配："></a>1. 横向模糊匹配：</h4><blockquote>
+<p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。</p>
+</blockquote>
+<p> 实现的方式是使用量词。譬如{m,n}，表示连续出现最少m次，最多n次。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/ab&#123;<span class="number">2</span>,<span class="number">5</span>&#125;c/</div><div class="line"><span class="comment">//表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”</span></div></pre></td></tr></table></figure>
+<h4 id="2-纵向模糊匹配"><a href="#2-纵向模糊匹配" class="headerlink" title="2. 纵向模糊匹配"></a>2. 纵向模糊匹配</h4><blockquote>
+<p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。</p>
+</blockquote>
+<p> 实现的方式是使用字符组。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/a[<span class="number">123</span>]b/</div><div class="line"><span class="comment">//可以匹配如下三种字符串："a1b"、"a2b"、"a3b"</span></div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h3><h4 id="1-范围表示法"><a href="#1-范围表示法" class="headerlink" title="1. 范围表示法"></a>1. 范围表示法</h4><p> 如果字符组里的字符特别多的话，可以使用范围表示法。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[<span class="number">1</span><span class="number">-6</span>a-fG-M]/</div><div class="line"><span class="comment">//匹配[123456abcdefGHIJKLM]</span></div></pre></td></tr></table></figure>
+<p> 如果连字符有特殊用途，不能写成[a-z]，可以写成如下的方式：[-az]或[az-]或[a-z]，总之不会让引擎认为是范围表示法就行了。</p>
+<h4 id="2-排除字符组"><a href="#2-排除字符组" class="headerlink" title="2. 排除字符组"></a>2. 排除字符组</h4><p> 在纵向模糊匹配中可能还有的一种情况是，某位字符可以是任何字符，但就不能是”a”、”b”、”c”。这就是排除字符组（反义字符组）的概念。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[^abc]/</div><div class="line"><span class="comment">//表示是一个除"a"、"b"、"c"之外的任意一个字符。</span></div></pre></td></tr></table></figure>
+<p> 字符组的第一位放^（脱字符），表示求反的概念。同样，它也有相应的范围表示法。</p>
+<h4 id="3-常见的简写形式"><a href="#3-常见的简写形式" class="headerlink" title="3. 常见的简写形式"></a>3. 常见的简写形式</h4><ul>
+<li>\d： 等价于[0-9]，表示是一位数字。记忆方式：其英文是digit（数字）</li>
+<li>\D： 等价于[^0-9]，表示除数字外的任意字符</li>
+<li>\w： 等价于[0-9a-zA-Z_]，表示数字、大小写字母和下划线。记忆方式：w是word的简写，也称单词字符</li>
+<li>\W： 等价于[^0-9a-zA-Z_]，非单词字符</li>
+<li>\s： 等价于[ \t\v\n\r\f]，表示空白符，包括空格、水平制表符、垂直制表符、换行符、回车符、换页符。记忆方式：s是space character的首字母</li>
+<li>\S： 等价于[^ \t\v\n\r\f]。 非空白符</li>
+</ul>
+</li>
+<li><h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><p>量词也称重复。</p>
+<h4 id="1-简写形式"><a href="#1-简写形式" class="headerlink" title="1. 简写形式"></a>1. 简写形式</h4><ul>
+<li>{m,}  表示至少出现m次</li>
+<li>{m}   等价于{m,m}，表示出现m次</li>
+<li>?     等价于{0,1}，表示出现或者不出现</li>
+<li>+    等价于{1,}，表示出现至少一次</li>
+<li>*     等价于{0,}，表示出现任意次，有可能不出现<h4 id="2-贪婪匹配"><a href="#2-贪婪匹配" class="headerlink" title="2. 贪婪匹配"></a>2. 贪婪匹配</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/\d&#123;<span class="number">2</span>,<span class="number">5</span>&#125;/</div><div class="line"><span class="comment">//表示数字连续出现2到5次，会匹配2位、3位、4位、5位连续数字</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>其是贪婪的，它会尽可能多的匹配。反正只要在能力范围内，越多越好。但有时贪婪不是一件好事。</p>
+<h4 id="3-惰性匹配"><a href="#3-惰性匹配" class="headerlink" title="3. 惰性匹配"></a>3. 惰性匹配</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/\d&#123;<span class="number">2</span>,<span class="number">5</span>&#125;?<span class="regexp">/</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/虽然2到5次都行，当2个就够的时候，就不在往下尝试了</span></div></pre></td></tr></table></figure>
+<p><em>通过在量词后面加个问号就能实现惰性匹配</em></p>
+</li>
+<li><h3 id="多选分支"><a href="#多选分支" class="headerlink" title="多选分支"></a>多选分支</h3><p>1.当一个模式可以实现横向和纵向模糊匹配，多选分支可以支持多个子模式任选其一。<br>2.具体形式如下：(p1|p2|p3)，其中p1、p2和p3是子模式，用|（管道符）分隔，表示其中任何之一。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/good|nice/</div><div class="line"><span class="comment">//匹配"good"和"nice"</span></div></pre></td></tr></table></figure>
+<p>但需要注意的是，<em>分支结构也是惰性的，即当前面的匹配上了，后面的就不再尝试了</em>。<br>比如用/good|goodbye/，去匹配”goodbye”字符串时，结果是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/good|goodbye/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"goodbye"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["good"]</span></div></pre></td></tr></table></figure>
+<p>而把正则改成/goodbye|good/，结果是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/goodbye|good/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"goodbye"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["goodbye"]</span></div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h3><h4 id="1-匹配16进制颜色值"><a href="#1-匹配16进制颜色值" class="headerlink" title="1. 匹配16进制颜色值"></a>1. 匹配16进制颜色值</h4><p>形如：#FFF #Fbc01BD #eee</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/#([0-9a-fA-F]&#123;6&#125;|[0-9a-fA-F]&#123;3&#125;)/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"#FFF #Fbc01BD #eee"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["#FFF", "#Fbc01BD", "#eee"]</span></div></pre></td></tr></table></figure>
+<h4 id="2-匹配时间"><a href="#2-匹配时间" class="headerlink" title="2. 匹配时间"></a>2. 匹配时间</h4><p>形如：23:29  06:06</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^([01][0-9]|[2][0-3]):[0-5][0-9]$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="3-匹配日期"><a href="#3-匹配日期" class="headerlink" title="3. 匹配日期"></a>3. 匹配日期</h4><p>形如：2017-09-24</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^[0-9]&#123;4&#125;-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="4-window操作系统文件路径"><a href="#4-window操作系统文件路径" class="headerlink" title="4. window操作系统文件路径"></a>4. window操作系统文件路径</h4><p>形如：<br>F:\<br>F:\study\javascript<br>F:\study\javascript\regex\<br>F:\study\javascript\regex\regular expression.pdf<br><em>注意：\ 字符需要转义</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^[a-zA-Z]:\\([^\\:*&lt;&gt;|"?\r\n/]+\\)*([^\\:*&lt;&gt;|"?\r\n/]+)?$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="5-匹配id"><a href="#5-匹配id" class="headerlink" title="5. 匹配id"></a>5. 匹配id</h4><p>形如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"root"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"main"</span>&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>使用惰性匹配：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/id=".*?"/</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>掌握字符组和量词就能解决大部分常见的情形，JavaScript正则算是入门了。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/正则表达式/" rel="tag"># 正则表达式</a>
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">1</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#啥是正则表达式？"><span class="nav-number">1.</span> <span class="nav-text">啥是正则表达式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精确匹配"><span class="nav-number">2.</span> <span class="nav-text">精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊匹配："><span class="nav-number">3.</span> <span class="nav-text">模糊匹配：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-横向模糊匹配："><span class="nav-number">3.1.</span> <span class="nav-text">1. 横向模糊匹配：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-纵向模糊匹配"><span class="nav-number">3.2.</span> <span class="nav-text">2. 纵向模糊匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符组"><span class="nav-number">4.</span> <span class="nav-text">字符组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-范围表示法"><span class="nav-number">4.1.</span> <span class="nav-text">1. 范围表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-排除字符组"><span class="nav-number">4.2.</span> <span class="nav-text">2. 排除字符组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-常见的简写形式"><span class="nav-number">4.3.</span> <span class="nav-text">3. 常见的简写形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#量词"><span class="nav-number">5.</span> <span class="nav-text">量词</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-简写形式"><span class="nav-number">5.1.</span> <span class="nav-text">1. 简写形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-贪婪匹配"><span class="nav-number">5.2.</span> <span class="nav-text">2. 贪婪匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-惰性匹配"><span class="nav-number">5.3.</span> <span class="nav-text">3. 惰性匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多选分支"><span class="nav-number">6.</span> <span class="nav-text">多选分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析"><span class="nav-number">7.</span> <span class="nav-text">案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-匹配16进制颜色值"><span class="nav-number">7.1.</span> <span class="nav-text">1. 匹配16进制颜色值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-匹配时间"><span class="nav-number">7.2.</span> <span class="nav-text">2. 匹配时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-匹配日期"><span class="nav-number">7.3.</span> <span class="nav-text">3. 匹配日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-window操作系统文件路径"><span class="nav-number">7.4.</span> <span class="nav-text">4. window操作系统文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-匹配id"><span class="nav-number">7.5.</span> <span class="nav-text">5. 匹配id</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
