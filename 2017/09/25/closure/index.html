@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解闭包">
+<meta property="og:url" content="http://leeper.online/myblog/2017/09/25/closure/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-09-25T14:34:03.889Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解闭包">
+<meta name="twitter:description" content="说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/09/25/closure/"/>
+
+
+
+
+
+  <title>深入理解闭包 | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/25/closure/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">深入理解闭包</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T21:30:54+08:00">
+                2017-09-25
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：<strong>当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。</strong><br><a id="more"></a><br>如果一句话说明什么是闭包，引用《JS高级程序设计》中对闭包的定义：</p>
+<blockquote>
+<p>闭包是指有权访问另一个函数作用域中的变量函数</p>
+</blockquote>
+<p>先来看一个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> gg = <span class="number">233</span>;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(gg)  <span class="comment">// -&gt;233</span></div><div class="line">  &#125;</div><div class="line">  bar();</div><div class="line">&#125;</div><div class="line">foo();</div></pre></td></tr></table></figure></p>
+<p>从闭包的定义来看，函数bar()就是一个闭包，它涵盖了foo()作用域。如果我们在全局访问局部变量gg是访问不到的，但在函数foo()是可以访问得到，这就可以看出<strong>闭包就是能够访问其他函数内部变量的函数。</strong></p>
+<p>再来看一个另外一种形式的闭包：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> gg = <span class="number">233</span>;</div><div class="line">  <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(gg);</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> bar;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> baz = foo();</div><div class="line">baz();</div></pre></td></tr></table></figure></p>
+<p>这里，函数foo()返回了一个闭包，函数bar。调用函数baz()实际上只是通过不同标识符引用调用了函数bar()，bar()就是在它自己定义的词法作用域之外执行。</p>
+<p>如果说闭包仅仅是一种称呼而已，但闭包的身影到处都是。在定时器，Ajax请求，事件监听器等任务中，只要使用了回调函数，实际上就已经是使用了闭包。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">await</span>(<span class="params">msg</span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(msg);</div><div class="line">    &#125;, <span class="number">100</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">await</span>(<span class="string">'Hello'</span>);</div></pre></td></tr></table></figure></p>
+<p>一般来说，当函数执行完毕后，局部变量会被销毁。但闭包的情况有所不同。100毫秒后，await内部作用域并不会消失,timer仍然涵盖await()的作用域，保有对变量msg的引用。</p>
+<p>上面这个例子可以得知闭包存在的问题，闭包会使得函数中的变量都保存在内存中，内存消耗很大，尽管有的JavaScript引擎会尝试回收被闭包占用的内存，但如果滥用闭包，可能会导致性能问题。如果上面的例子想解除引用，可以这么做：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">await</span>(<span class="params">msg</span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(msg);</div><div class="line">    &#125;, <span class="number">100</span>);</div><div class="line">    timer = <span class="literal">null</span>;  <span class="comment">//通知垃圾回收例程将其回收</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">await</span>(<span class="string">'Hello'</span>);</div></pre></td></tr></table></figure></p>
+<p>说到闭包，有一个经典的再不能经典的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;<span class="number">5</span>; i++) &#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;  <span class="comment">// -&gt; 5 5 5 5</span></div></pre></td></tr></table></figure></p>
+<p>可能已经猜到输出的结果是4个5，而不是想要的1 2 3 4。为什么呢？当<em>console.log</em>被调用的时候，函数timer()保持对外部变量 i 的引用，此时<em>for</em>循环已经结束， i 的值被修改成了5，<strong>闭包保存的是整个变量对象</strong>。</p>
+<p>为了得到想要的结果，需要在每次循环中创建变量 i 的拷贝，可以通过IIFE（立即执行函数表达式）解决：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i=<span class="number">1</span>; i&lt;<span class="number">5</span>; i++) &#123;</div><div class="line">  (<span class="function"><span class="keyword">function</span>(<span class="params">j</span>) </span>&#123;</div><div class="line">     setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">       <span class="built_in">console</span>.log(j);</div><div class="line">       &#125;, <span class="number">0</span>);</div><div class="line">    &#125;)(i);</div><div class="line">&#125;  <span class="comment">// -&gt; 1 2 3 4</span></div></pre></td></tr></table></figure></p>
+<p>外部的匿名函数会立即执行，并把 i 作为它的参数，由于函数参数是按值传递的，此时函数内 j 变量就拥有了 i 的一个拷贝。在迭代内使用IIFE会为每一个迭代都生成一个新的作用域，因而拷贝的值是不会被循环改变的。</p>
+<p>除了使用IIFE，还有一种较为优雅的解决方法，就是使用ECMAScript2015的let关键字：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">1</span>; i&lt;<span class="number">5</span>; i++) &#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span> <span class="title">timer</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(i)</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;  <span class="comment">// -&gt; 1 2 3 4</span></div></pre></td></tr></table></figure></p>
+<hr>
+<p>不知不觉到总结时间：</p>
+<ul>
+<li><strong>闭包是指有权访问另一个函数作用域中的变量函数</strong></li>
+<li><strong>闭包是将函数内部和函数外部连接起来的一座桥梁</strong></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/24/RegExBasic/" rel="next" title="正则表达式(基础篇)">
+                <i class="fa fa-chevron-left"></i> 正则表达式(基础篇)
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview sidebar-panel sidebar-panel-active">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
