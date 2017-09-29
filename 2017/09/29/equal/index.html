@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, leeper" />
+  <meta name="keywords" content="JavaScript,感悟," />
 
 
 
@@ -94,13 +94,21 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="棕小渐的博客">
-<meta property="og:url" content="http://leeper.online/myblog/index.html">
+<meta name="description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
+<meta name="keywords" content="JavaScript,感悟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS相等性运算符引发的思考">
+<meta property="og:url" content="http://leeper.online/myblog/2017/09/29/equal/index.html">
 <meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.niupic.com/images/2017/09/29/CuBfD1.png">
+<meta property="og:image" content="http://i.niupic.com/images/2017/09/29/JhWnEP.png">
+<meta property="og:updated_time" content="2017-09-29T14:34:53.050Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="棕小渐的博客">
+<meta name="twitter:title" content="JS相等性运算符引发的思考">
+<meta name="twitter:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
+<meta name="twitter:image" content="http://i.niupic.com/images/2017/09/29/CuBfD1.png">
 
 
 
@@ -129,13 +137,13 @@
 
 
 
-  <link rel="canonical" href="http://leeper.online/myblog/"/>
+  <link rel="canonical" href="http://leeper.online/myblog/2017/09/29/equal/"/>
 
 
 
 
 
-  <title>棕小渐的博客</title>
+  <title>JS相等性运算符引发的思考 | 棕小渐的博客</title>
   
 
 
@@ -160,9 +168,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-   page-home 
- ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -255,9 +261,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -287,9 +293,7 @@
 
         
         
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/29/equal/" itemprop="url">JS相等性运算符引发的思考</a></h2>
+          <h2 class="post-title" itemprop="name headline">JS相等性运算符引发的思考</h2>
         
 
         <div class="post-meta">
@@ -301,7 +305,7 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T22:33:54+09:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-29T21:33:54+08:00">
                 2017-09-29
               </time>
             
@@ -339,16 +343,13 @@
       
 
       
-        
-          <p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/29/equal/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+        <p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br><a id="more"></a><br>先来看是啥小东西：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="built_in">console</span>.log(foo == bar);</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<p>== 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对象指向的是否是同一个引用。如果是则true，否则false。<br>试完 == 再试试 &gt; , &lt; 看看：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt; bar);  <span class="comment">// -&gt; false</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt; bar);  <span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<p>自然不能落下&lt;= , =&gt;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt;= bar);  <span class="comment">// -&gt; true</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt;= bar);  <span class="comment">// -&gt; true</span></div></pre></td></tr></table></figure></p>
+<p>有图有真相：（注：使用Node的REPL进行演示）<br><img src="http://i.niupic.com/images/2017/09/29/CuBfD1.png" alt="image"><br>为什么会这样？开始了查阅文档之路，先看平时习惯查阅的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank" rel="external">MDN</a>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness" target="_blank" rel="external">JavaScript 中的相等性判断</a>似乎找不到解释，再查看<a href="http://www.w3school.com.cn/js/pro_js_operators_relational.asp" target="_blank" rel="external">W3school</a>和<a href="http://www.runoob.com/js/js-comparisons.html" target="_blank" rel="external">菜鸟教程</a>相关的都只是陈列一些，都没有找到解释……最后去翻阅<a href="http://www.ecma-international.org/ecma-262/5.1/index.html#sec-11.8.3" target="_blank" rel="external">官方文档</a>才找到了解释：<br><img src="http://i.niupic.com/images/2017/09/29/JhWnEP.png" alt="image"><br>可以将 &gt;= , &lt;= 理解成底层是这样 !(&lt;) , !(&gt;) 调用的。那么为什么是 true 就找到了解释。</p>
+<hr>
+<p>总结：JS学习过程中，它的<a href="http://www.ecma-international.org/ecma-262/5.1/" target="_blank" rel="external">官方文档(ES5.1)</a>往往是翻阅最少的，但它却是JS渊源最权威的记录。</p>
+
       
     </div>
     
@@ -363,267 +364,38 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/25/closure/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="棕小渐的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/25/closure/" itemprop="url">深入理解闭包</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T22:30:54+09:00">
-                2017-09-25
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            
+            <a href="/tags/感悟/" rel="tag"># 感悟</a>
           
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
+      
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+      
       
       
 
       
-        
-          <p>说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：<strong>当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。</strong><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/25/closure/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/25/closure/" rel="next" title="深入理解闭包">
+                <i class="fa fa-chevron-left"></i> 深入理解闭包
+              </a>
+            
           </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
 
-    
+          <span class="post-nav-divider"></span>
 
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/24/RegExBasic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="棕小渐的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/24/RegExBasic/" itemprop="url">正则表达式(基础篇)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+          <div class="post-nav-prev post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T20:51:23+09:00">
-                2017-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <ul>
-<li><h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
-<p>正则就是用有限的符号，表达无限的序列。</p>
-</blockquote>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/24/RegExBasic/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -633,10 +405,11 @@
   </article>
 
 
-    
-  </section>
 
-  
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -644,6 +417,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -827,10 +604,10 @@
 
 
   
-    <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
 <script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
 
-  
+
 
   
 
