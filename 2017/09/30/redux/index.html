@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React，架构," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="Redux是什么 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。">
+<meta name="keywords" content="React，架构">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入浅出理解Redux">
+<meta property="og:url" content="http://leeper.online/myblog/2017/09/30/redux/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="Redux是什么 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://i.niupic.com/images/2017/09/29/YSaDHU.png">
+<meta property="og:image" content="http://i.niupic.com/images/2017/09/30/BTZ7ie.png">
+<meta property="og:updated_time" content="2017-09-30T15:21:25.528Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入浅出理解Redux">
+<meta name="twitter:description" content="Redux是什么 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。">
+<meta name="twitter:image" content="http://i.niupic.com/images/2017/09/29/YSaDHU.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/09/30/redux/"/>
+
+
+
+
+
+  <title>深入浅出理解Redux | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/30/redux/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">深入浅出理解Redux</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-30T22:20:54+08:00">
+                2017-09-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ul>
+<li><h3 id="Redux是什么"><a href="#Redux是什么" class="headerlink" title="Redux是什么"></a>Redux是什么</h3><blockquote>
+<p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</p>
+<a id="more"></a>
+<p>它认为：Web应用是一个状态机，视图与状态一一对应。从架构层面来说，通常希望UI跟数据、逻辑分离，直观体现就是：<strong>UI = render(state)</strong></p>
+</blockquote>
+</li>
+<li><h3 id="为什么要用Redux"><a href="#为什么要用Redux" class="headerlink" title="为什么要用Redux"></a>为什么要用Redux</h3><p>现在的Web应用涉及大量数据交互、异步操作等，无疑都在增加前端的复杂性，需要维护的state也越来越多。而Redux就是试图让每个state变化都是可预测，将应用中所有的action与state统一管理。</p>
+</li>
+<li><h3 id="Redux的三原则"><a href="#Redux的三原则" class="headerlink" title="Redux的三原则"></a>Redux的三原则</h3><ul>
+<li><strong>单一数据源</strong><br>整个应用state应该只存储在唯一一个的Store中。</li>
+<li><strong>保持状态只是只读</strong><br>不能直接修改state，唯一能改变Store的state方法就是通过触发一个action对象完成。</li>
+<li><strong>数据改变通过纯函数完成</strong><br>action改变state需要通过reducers。</li>
+</ul>
+</li>
+<li><h3 id="Redux工作流程"><a href="#Redux工作流程" class="headerlink" title="Redux工作流程"></a>Redux工作流程</h3><p>在讲Redux的工作流程之前，需了解几个Redux相关的核心概念：</p>
+<ul>
+<li>Action：Action可以看成是应用发出的通知，表示State应该要发生变化了，Action的触发可能是用户对View层的操作也可能是服务器的响应。</li>
+<li>Action Creator：如果有很多种Action，而每种Action都手写的话显得麻烦，所以用定义的Action Creator函数来生成Action。</li>
+<li>Dispatch：Action发出的唯一方法。</li>
+<li>Store：整个应用唯一保存数据的地方。</li>
+<li>State：对Store中保存数据生成某个时点数据快照，该数据集合叫做State。</li>
+<li>Reducer：Action只是描述了State应要发生变化，而Reducer做的是如何改变State。</li>
+</ul>
+<p>具体工作流程：<br>用户通过View（或服务器响应）触发Action，Dispatch方法将Action Creator函数生成的Action派发到Store，Store自动调用Reducer，并向它传入当前State和Action，Reducer返回新的State，State一旦有变化，Store就会通过监听函数来更新View。<br>借用一张图来描述这一过程：<br><img src="http://i.niupic.com/images/2017/09/29/YSaDHU.png" alt="image"><br><strong>严格的单向数据流是 Redux 架构的设计核心。</strong></p>
+</li>
+<li><h3 id="几个Redux核心概念实例"><a href="#几个Redux核心概念实例" class="headerlink" title="几个Redux核心概念实例"></a>几个Redux核心概念实例</h3><p>以从服务器响应文章内容为例<br>Action</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL = <span class="string">'LOAD_ARTICLES_DETAIL'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_SUCCESS = <span class="string">'LOAD_ARTICLES_DETAIL_SUCCESS'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_ERROR = <span class="string">'LOAD_ARTICLES_DETAIL_ERROR'</span></div></pre></td></tr></table></figure>
+<p>Action Creator</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetail = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailSuccess = <span class="function"><span class="params">result</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_SUCCESS,</div><div class="line">  result</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailFailure = <span class="function"><span class="params">error</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_ERROR,</div><div class="line">  error</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> store = createStore(reducers)</div></pre></td></tr></table></figure>
+<p>Reducer<br>(previousState, action) =&gt; (newState)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">export</span> <span class="keyword">default</span> (state = initalState, action) =&gt; &#123;</div><div class="line"> <span class="keyword">switch</span> (action.type) &#123;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">true</span>,</div><div class="line">     error: <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_SUCCESS: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">false</span>,</div><div class="line">     articlesDetail: action.result</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_ERROR: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">true</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">default</span>:</div><div class="line">   <span class="keyword">return</span> state</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="深入到Redux的源码"><a href="#深入到Redux的源码" class="headerlink" title="深入到Redux的源码"></a>深入到Redux的源码</h3><p>Redux主要源码整体结构：<br><img src="http://i.niupic.com/images/2017/09/30/BTZ7ie.png" alt="image"></p>
+<ul>
+<li>入口文件 index.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123;</div><div class="line">  createStore,</div><div class="line">  combineReducers,</div><div class="line">  bindActionCreators,</div><div class="line">  applyMiddleware,</div><div class="line">  compose</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>这是入口文件导出的方法，也是Redux支持的方法，这些方法的实现在主工作流程文件和辅助函数文件，接下来看主工作流程。</p>
+<ul>
+<li>主工作流程文件 createStore.js<br>createStore方法主要是生成Store，看看它做了哪些事儿：<ul>
+<li>getState方法返回了当前State</li>
+<li>subscribe方法传入函数到监听队列和返回取消订阅函数</li>
+<li>dispatch方法调用Reducer，按顺序执行listener，返回Action<br>辅助源码文件：</li>
+</ul>
+</li>
+<li>applyMiddleware.js：用于增强Store<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, preloadedState, enhancer) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> store = createStore(reducer, preloadedState, enhancer)</div><div class="line">    <span class="keyword">let</span> dispatch = store.dispatch</div><div class="line">    <span class="keyword">let</span> chain = []</div><div class="line"></div><div class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</div><div class="line">      getState: store.getState,</div><div class="line">      dispatch: <span class="function">(<span class="params">...args</span>) =&gt;</span> dispatch(...args)</div><div class="line">    &#125;</div><div class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</div><div class="line">    dispatch = compose(...chain)(store.dispatch)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      ...store,</div><div class="line">      dispatch</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>从源码上看，最后是返回了一个Store和一个被更新过的dispatch方法，实现了对Store的增强。</p>
+<ul>
+<li><p>bindActionCreators.js：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">bindActionCreators</span>(<span class="params">actionCreators, dispatch</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreators === <span class="string">'function'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> bindActionCreator(actionCreators, dispatch)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用dispatch把action creator都包装起来，这样可以直接调用它们。</p>
+</li>
+<li>combineReducers.js：当应用比较大的时而拆分Reducer，但是传入Store的Reducer必须是一个函数，所以这个方法的主要功能是用来合并多个Reducer。</li>
+<li><p>compose.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">...funcs</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">1</span>) &#123;</div><div class="line">    <span class="keyword">return</span> funcs[<span class="number">0</span>]</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> funcs.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> (...args) =&gt; a(b(...args)))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>compose这个方法，传入的一系列函数，执行的最终结果是把各个函数串联起来。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>总结：</p>
+<ul>
+<li>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</li>
+<li>严格的单向数据流是 Redux 架构的设计核心。</li>
+<li>UI = render(state)</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React，架构/" rel="tag"># React，架构</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/29/equal/" rel="next" title="JS相等性运算符引发的思考">
+                <i class="fa fa-chevron-left"></i> JS相等性运算符引发的思考
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux是什么"><span class="nav-number">1.</span> <span class="nav-text">Redux是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要用Redux"><span class="nav-number">2.</span> <span class="nav-text">为什么要用Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux的三原则"><span class="nav-number">3.</span> <span class="nav-text">Redux的三原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux工作流程"><span class="nav-number">4.</span> <span class="nav-text">Redux工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个Redux核心概念实例"><span class="nav-number">5.</span> <span class="nav-text">几个Redux核心概念实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入到Redux的源码"><span class="nav-number">6.</span> <span class="nav-text">深入到Redux的源码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
