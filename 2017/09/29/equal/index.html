@@ -94,20 +94,20 @@
 
 
 
-<meta name="description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。先来看是啥小东西：12345678let foo = &amp;#123;  b: 42&amp;#125;;let bar = &amp;#123;  b: 42&amp;#125;;console.log(foo == bar);// -&amp;gt; false == 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对">
+<meta name="description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
 <meta name="keywords" content="JavaScript,感悟">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JS相等性运算符引发的思考">
 <meta property="og:url" content="http://leeper.online/myblog/2017/09/29/equal/index.html">
 <meta property="og:site_name" content="棕小渐的博客">
-<meta property="og:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。先来看是啥小东西：12345678let foo = &amp;#123;  b: 42&amp;#125;;let bar = &amp;#123;  b: 42&amp;#125;;console.log(foo == bar);// -&amp;gt; false == 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对">
+<meta property="og:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.niupic.com/images/2017/09/29/CuBfD1.png">
 <meta property="og:image" content="http://i.niupic.com/images/2017/09/29/JhWnEP.png">
-<meta property="og:updated_time" content="2017-10-08T04:01:07.875Z">
+<meta property="og:updated_time" content="2017-10-08T04:07:00.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS相等性运算符引发的思考">
-<meta name="twitter:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。先来看是啥小东西：12345678let foo = &amp;#123;  b: 42&amp;#125;;let bar = &amp;#123;  b: 42&amp;#125;;console.log(foo == bar);// -&amp;gt; false == 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对">
+<meta name="twitter:description" content="前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。">
 <meta name="twitter:image" content="http://i.niupic.com/images/2017/09/29/CuBfD1.png">
 
 
@@ -343,8 +343,7 @@
       
 
       
-        <a id="more"></a>
-<p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br>先来看是啥小东西：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="built_in">console</span>.log(foo == bar);</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+        <p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br><a id="more"></a><br>先来看是啥小东西：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="built_in">console</span>.log(foo == bar);</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
 <p>== 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对象指向的是否是同一个引用。如果是则true，否则false。<br>试完 == 再试试 &gt; , &lt; 看看：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt; bar);  <span class="comment">// -&gt; false</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt; bar);  <span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
 <p>自然不能落下&lt;= , =&gt;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt;= bar);  <span class="comment">// -&gt; true</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt;= bar);  <span class="comment">// -&gt; true</span></div></pre></td></tr></table></figure></p>
 <p>有图有真相：（注：使用Node的REPL进行演示）<br><img src="http://i.niupic.com/images/2017/09/29/CuBfD1.png" alt="image"><br>为什么会这样？开始了查阅文档之路，先看平时习惯查阅的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank" rel="external">MDN</a>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness" target="_blank" rel="external">JavaScript 中的相等性判断</a>似乎找不到解释，再查看<a href="http://www.w3school.com.cn/js/pro_js_operators_relational.asp" target="_blank" rel="external">W3school</a>和<a href="http://www.runoob.com/js/js-comparisons.html" target="_blank" rel="external">菜鸟教程</a>相关的都只是陈列一些，都没有找到解释……最后去翻阅<a href="http://www.ecma-international.org/ecma-262/5.1/index.html#sec-11.8.3" target="_blank" rel="external">官方文档</a>才找到了解释：<br><img src="http://i.niupic.com/images/2017/09/29/JhWnEP.png" alt="image"><br>可以将 &gt;= , &lt;= 理解成底层是这样 !(&lt;) , !(&gt;) 调用的。那么为什么是 true 就找到了解释。</p>

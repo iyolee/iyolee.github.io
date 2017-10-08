@@ -94,18 +94,18 @@
 
 
 
-<meta name="description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：1234567891011121314function identifyUser () &amp;#123;  return this.name.toUpperCase();&amp;#125;let obj1 = &amp;#123;  name: leeper;">
+<meta name="description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="全面理解JavaScript中的this">
 <meta property="og:url" content="http://leeper.online/myblog/2017/10/08/this/index.html">
 <meta property="og:site_name" content="棕小渐的博客">
-<meta property="og:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：1234567891011121314function identifyUser () &amp;#123;  return this.name.toUpperCase();&amp;#125;let obj1 = &amp;#123;  name: leeper;">
+<meta property="og:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-08T03:59:51.374Z">
+<meta property="og:updated_time" content="2017-10-08T04:07:46.713Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="全面理解JavaScript中的this">
-<meta name="twitter:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：1234567891011121314function identifyUser () &amp;#123;  return this.name.toUpperCase();&amp;#125;let obj1 = &amp;#123;  name: leeper;">
+<meta name="twitter:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。">
 
 
 
@@ -340,8 +340,7 @@
       
 
       
-        <a id="more"></a>
-<p>this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">identifyUser</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name.toUpperCase();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj1 = &#123;</div><div class="line">  name: leeper;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj2 = &#123;</div><div class="line">  name: Sandman;</div><div class="line">&#125;</div><div class="line"></div><div class="line">identifyUser.call(obj1) <span class="comment">// -&gt; LEEPER</span></div><div class="line">identifyUser.call(obj2) <span class="comment">// -&gt; SANDMAN</span></div></pre></td></tr></table></figure></p>
+        <p>this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。<a id="more"></a>抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">identifyUser</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name.toUpperCase();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj1 = &#123;</div><div class="line">  name: leeper;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj2 = &#123;</div><div class="line">  name: Sandman;</div><div class="line">&#125;</div><div class="line"></div><div class="line">identifyUser.call(obj1) <span class="comment">// -&gt; LEEPER</span></div><div class="line">identifyUser.call(obj2) <span class="comment">// -&gt; SANDMAN</span></div></pre></td></tr></table></figure></p>
 <p>如果不使用this，就需要给identifyUser()显示传入一个上下文对象，但随着使用模式的增加，显示传递上下文对象成了”噩梦“，让代码也变得越来越混乱。为了将API设计得更加简洁并易于复用，就必须正视this。</p>
 <ul>
 <li><h3 id="什么是this"><a href="#什么是this" class="headerlink" title="什么是this"></a>什么是this</h3><p>如果在任何函数体外部，无论是否在严格模式，this都指代全局对象。这里着重讨论的是函数体内部的this:<br><strong>this是指向包含它的函数被调用时所属的执行上下文。</strong><br>当一个函数被调用时，会创建一个执行上下文，它包含函数调用栈，函数的调用方式，传入的参数等信息。所以this是在运行时确定的，并不是在编写时确定的。</p>
