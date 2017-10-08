@@ -270,6 +270,385 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/08/RegExBasic/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/08/RegExBasic/" itemprop="url">正则表达式(基础篇)</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T13:00:08+09:00">
+                2017-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<ul>
+<li><h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
+<p>正则就是用有限的符号，表达无限的序列。</p>
+</blockquote>
+</li>
+</ul>
+<p>  记住一句重要的话，<strong>正则表达式是匹配模式，要么匹配字符，要么匹配位置。</strong></p>
+<ul>
+<li><h3 id="精确匹配"><a href="#精确匹配" class="headerlink" title="精确匹配"></a>精确匹配</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/abc/ <span class="comment">// 匹配 abc</span></div><div class="line">/<span class="number">123</span>/ <span class="comment">// 匹配 123</span></div></pre></td></tr></table></figure>
+<p>正则的强大在于它能实现模糊匹配。</p>
+</li>
+<li><h3 id="模糊匹配："><a href="#模糊匹配：" class="headerlink" title="模糊匹配："></a>模糊匹配：</h3><p>模糊匹配可分为：<strong>横向匹配</strong>和<strong>纵向匹配</strong>。</p>
+<h4 id="1-横向模糊匹配："><a href="#1-横向模糊匹配：" class="headerlink" title="1. 横向模糊匹配："></a>1. 横向模糊匹配：</h4><blockquote>
+<p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。</p>
+</blockquote>
+<p> 实现的方式是使用量词。譬如{m,n}，表示连续出现最少m次，最多n次。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/ab&#123;<span class="number">2</span>,<span class="number">5</span>&#125;c/</div><div class="line"><span class="comment">//表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”</span></div></pre></td></tr></table></figure>
+<h4 id="2-纵向模糊匹配"><a href="#2-纵向模糊匹配" class="headerlink" title="2. 纵向模糊匹配"></a>2. 纵向模糊匹配</h4><blockquote>
+<p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。</p>
+</blockquote>
+<p> 实现的方式是使用字符组。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/a[<span class="number">123</span>]b/</div><div class="line"><span class="comment">//可以匹配如下三种字符串："a1b"、"a2b"、"a3b"</span></div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h3><h4 id="1-范围表示法"><a href="#1-范围表示法" class="headerlink" title="1. 范围表示法"></a>1. 范围表示法</h4><p> 如果字符组里的字符特别多的话，可以使用范围表示法。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[<span class="number">1</span><span class="number">-6</span>a-fG-M]/</div><div class="line"><span class="comment">//匹配[123456abcdefGHIJKLM]</span></div></pre></td></tr></table></figure>
+<p> 如果连字符有特殊用途，不能写成[a-z]，可以写成如下的方式：[-az]或[az-]或[a-z]，总之不会让引擎认为是范围表示法就行了。</p>
+<h4 id="2-排除字符组"><a href="#2-排除字符组" class="headerlink" title="2. 排除字符组"></a>2. 排除字符组</h4><p> 在纵向模糊匹配中可能还有的一种情况是，某位字符可以是任何字符，但就不能是”a”、”b”、”c”。这就是排除字符组（反义字符组）的概念。</p>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[^abc]/</div><div class="line"><span class="comment">//表示是一个除"a"、"b"、"c"之外的任意一个字符。</span></div></pre></td></tr></table></figure>
+<p> 字符组的第一位放^（脱字符），表示求反的概念。同样，它也有相应的范围表示法。</p>
+<h4 id="3-常见的简写形式"><a href="#3-常见的简写形式" class="headerlink" title="3. 常见的简写形式"></a>3. 常见的简写形式</h4><ul>
+<li>\d： 等价于[0-9]，表示是一位数字。记忆方式：其英文是digit（数字）</li>
+<li>\D： 等价于[^0-9]，表示除数字外的任意字符</li>
+<li>\w： 等价于[0-9a-zA-Z_]，表示数字、大小写字母和下划线。记忆方式：w是word的简写，也称单词字符</li>
+<li>\W： 等价于[^0-9a-zA-Z_]，非单词字符</li>
+<li>\s： 等价于[ \t\v\n\r\f]，表示空白符，包括空格、水平制表符、垂直制表符、换行符、回车符、换页符。记忆方式：s是space character的首字母</li>
+<li>\S： 等价于[^ \t\v\n\r\f]。 非空白符</li>
+</ul>
+</li>
+<li><h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><p>量词也称重复。</p>
+<h4 id="1-简写形式"><a href="#1-简写形式" class="headerlink" title="1. 简写形式"></a>1. 简写形式</h4><ul>
+<li>{m,}  表示至少出现m次</li>
+<li>{m}   等价于{m,m}，表示出现m次</li>
+<li>?     等价于{0,1}，表示出现或者不出现</li>
+<li>+    等价于{1,}，表示出现至少一次</li>
+<li>*     等价于{0,}，表示出现任意次，有可能不出现</li>
+</ul>
+<h4 id="2-贪婪匹配"><a href="#2-贪婪匹配" class="headerlink" title="2. 贪婪匹配"></a>2. 贪婪匹配</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/\d&#123;<span class="number">2</span>,<span class="number">5</span>&#125;/</div><div class="line"><span class="comment">//表示数字连续出现2到5次，会匹配2位、3位、4位、5位连续数字</span></div></pre></td></tr></table></figure>
+<p>其是贪婪的，它会尽可能多的匹配。反正只要在能力范围内，越多越好。但有时贪婪不是一件好事。</p>
+<h4 id="3-惰性匹配"><a href="#3-惰性匹配" class="headerlink" title="3. 惰性匹配"></a>3. 惰性匹配</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/\d&#123;<span class="number">2</span>,<span class="number">5</span>&#125;?<span class="regexp">/</span></div><div class="line"><span class="regexp">/</span><span class="regexp">/虽然2到5次都行，当2个就够的时候，就不在往下尝试了</span></div></pre></td></tr></table></figure>
+<p><em>通过在量词后面加个问号就能实现惰性匹配</em></p>
+</li>
+<li><h3 id="多选分支"><a href="#多选分支" class="headerlink" title="多选分支"></a>多选分支</h3><p>1.当一个模式可以实现横向和纵向模糊匹配，多选分支可以支持多个子模式任选其一。<br>2.具体形式如下：(p1|p2|p3)，其中p1、p2和p3是子模式，用|（管道符）分隔，表示其中任何之一。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/good|nice/</div><div class="line"><span class="comment">//匹配"good"和"nice"</span></div></pre></td></tr></table></figure>
+<p>但需要注意的是，<em>分支结构也是惰性的，即当前面的匹配上了，后面的就不再尝试了</em>。<br>比如用/good|goodbye/，去匹配”goodbye”字符串时，结果是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/good|goodbye/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"goodbye"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["good"]</span></div></pre></td></tr></table></figure>
+<p>而把正则改成/goodbye|good/，结果是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/goodbye|good/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"goodbye"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["goodbye"]</span></div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="案例分析"><a href="#案例分析" class="headerlink" title="案例分析"></a>案例分析</h3><h4 id="1-匹配16进制颜色值"><a href="#1-匹配16进制颜色值" class="headerlink" title="1. 匹配16进制颜色值"></a>1. 匹配16进制颜色值</h4><p>形如：#FFF #Fbc01BD #eee</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/#([0-9a-fA-F]&#123;6&#125;|[0-9a-fA-F]&#123;3&#125;)/g</span>;</div><div class="line"><span class="keyword">var</span> string = <span class="string">"#FFF #Fbc01BD #eee"</span>;</div><div class="line"><span class="built_in">console</span>.log( string.match(regex) );</div><div class="line"><span class="comment">// =&gt; ["#FFF", "#Fbc01BD", "#eee"]</span></div></pre></td></tr></table></figure>
+<h4 id="2-匹配时间"><a href="#2-匹配时间" class="headerlink" title="2. 匹配时间"></a>2. 匹配时间</h4><p>形如：23:29  06:06</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^([01][0-9]|[2][0-3]):[0-5][0-9]$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="3-匹配日期"><a href="#3-匹配日期" class="headerlink" title="3. 匹配日期"></a>3. 匹配日期</h4><p>形如：2017-09-24</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^[0-9]&#123;4&#125;-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="4-window操作系统文件路径"><a href="#4-window操作系统文件路径" class="headerlink" title="4. window操作系统文件路径"></a>4. window操作系统文件路径</h4><p>形如：<br>F:\<br>F:\study\javascript<br>F:\study\javascript\regex\<br>F:\study\javascript\regex\regular expression.pdf<br><em>注意：\ 字符需要转义</em></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/^[a-zA-Z]:\\([^\\:*&lt;&gt;|"?\r\n/]+\\)*([^\\:*&lt;&gt;|"?\r\n/]+)?$/</span>;</div></pre></td></tr></table></figure>
+<h4 id="5-匹配id"><a href="#5-匹配id" class="headerlink" title="5. 匹配id"></a>5. 匹配id</h4><p>形如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;div id=<span class="string">"root"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"main"</span>&gt;&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>使用惰性匹配：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> regex = <span class="regexp">/id=".*?"/</span>;</div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>掌握字符组和量词就能解决大部分常见的情形，JavaScript正则算是入门了。</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/08/this/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2017/10/08/this/" itemprop="url">全面理解JavaScript中的this</a></h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T11:58:20+09:00">
+                2017-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <a id="more"></a>
+<p>this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。抛开这些“形而上”的意义不说，从实用性及代码简洁展示this的不可或缺的地位，举例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">identifyUser</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="keyword">this</span>.name.toUpperCase();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj1 = &#123;</div><div class="line">  name: leeper;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">let</span> obj2 = &#123;</div><div class="line">  name: Sandman;</div><div class="line">&#125;</div><div class="line"></div><div class="line">identifyUser.call(obj1) <span class="comment">// -&gt; LEEPER</span></div><div class="line">identifyUser.call(obj2) <span class="comment">// -&gt; SANDMAN</span></div></pre></td></tr></table></figure></p>
+<p>如果不使用this，就需要给identifyUser()显示传入一个上下文对象，但随着使用模式的增加，显示传递上下文对象成了”噩梦“，让代码也变得越来越混乱。为了将API设计得更加简洁并易于复用，就必须正视this。</p>
+<ul>
+<li><h3 id="什么是this"><a href="#什么是this" class="headerlink" title="什么是this"></a>什么是this</h3><p>如果在任何函数体外部，无论是否在严格模式，this都指代全局对象。这里着重讨论的是函数体内部的this:<br><strong>this是指向包含它的函数被调用时所属的执行上下文。</strong><br>当一个函数被调用时，会创建一个执行上下文，它包含函数调用栈，函数的调用方式，传入的参数等信息。所以this是在运行时确定的，并不是在编写时确定的。</p>
+</li>
+<li><h3 id="调用方式"><a href="#调用方式" class="headerlink" title="调用方式"></a>调用方式</h3><p>在函数内部，this的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式：</p>
+<ul>
+<li>直接调用<br>this的值默认指向全局对象：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> a = <span class="number">233</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line">foo() <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>但在严格模式下，this默认为undefined；</p>
+<ul>
+<li>作为对象的方法调用<br>函数调用时会绑定到上下文对象：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line">obj.foo(); <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>对象引用链中只有在最后一层调用位置中起作用：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">let</span> obj1 = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> obj2 = &#123;</div><div class="line">  a: <span class="number">2333</span>,</div><div class="line">  obj1: obj1</div><div class="line">&#125;</div><div class="line">obj2.obj1.foo() <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+<ul>
+<li>bind方法<br>在讲bind之前不得不先提两种绑定丢失的情况：<br>第一种　　<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> bar = obj.foo;</div><div class="line"><span class="keyword">var</span> a = <span class="string">'global a'</span>;</div><div class="line">bar(); <span class="comment">// -&gt; 'global a'</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>虽然bar是obj.foo的一个引用，但实际上，它引用的foo函数本身，foo函数在全局直接调用，非严格模式下，this指向全局对象。<br>第二种  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> a = <span class="string">"global a"</span>;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doFn</span>(<span class="params">fn</span>) </span>&#123;</div><div class="line">  fn();</div><div class="line">&#125;</div><div class="line">doFn(obj.foo); <span class="comment">// -&gt; 'global a'</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> a = <span class="string">"global a"</span>;</div><div class="line">setTimeout(obj.foo, <span class="number">0</span>) <span class="comment">// -&gt; 'global a'</span></div></pre></td></tr></table></figure>
+<p>参数传入的是函数会导致被传入的这个函数this绑定丢失，this会指向默认的全局对象。<br>bind方法可以解决上this绑定丢失的情况：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> a = <span class="string">"global a"</span>;</div><div class="line"><span class="keyword">var</span> bar = foo.bind(obj);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doFn</span> (<span class="params">fn</span>) </span>&#123;</div><div class="line">  fn();</div><div class="line">&#125;</div><div class="line">doFn(bar); <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+<p>fn.bind(某个对象)会创建一个与fn具有相同函数体和作用域的新函数，在这个新函数中，this将永久地绑定到了<br>bind的第一个参数，无论这个函数如何被调用。</p>
+<ul>
+<li>call与apply方法<br>这两个方法的第一个参数是一个对象，是给this准备的，接着在调用函数时将其绑定到this。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  a:<span class="number">233</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line">foo.call(obj) <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>this绑定角度看，apply方法与call方法，区别在于其他参数上。</p>
+<ul>
+<li><p>作为构造函数调用<br>使用new来调用函数时，会自动执行下面操作：</p>
+<ul>
+<li>构造一个全新的对象；</li>
+<li>构造出的新对象会被执行[[Prototype]]连接；</li>
+<li>新对象会绑定到函数调用的this;</li>
+<li>如果函数没有返回其他对象，那么表达式中的函数调用会自动返回这个新对象。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params">a</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.a = a;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> bar = <span class="keyword">new</span> foo(<span class="number">233</span>);</div><div class="line"><span class="built_in">console</span>.log(bar.a); <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>使用new来调用foo()时，会构造一个新对象并把它绑定到foo()调用中的this上。</p>
+<ul>
+<li>作为DOM事件处理函数<br>当函数被用作事件处理函数时，它的this会指向触发事件的元素。</li>
+<li>箭头函数<br>箭头函数会继承外层函数调用的this绑定，在全局作用域中则会绑定到全局对象上。<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'a'</span>, <span class="keyword">this</span>.a);</div><div class="line">    &#125;, <span class="number">0</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> a = <span class="string">'global a'</span>;</div><div class="line">foo.call(&#123;<span class="attr">a</span>: <span class="number">233</span>&#125;); <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>如果是普通函数，执行时this应该指向全局对象，输出的’global a’，而箭头函数this继承它的外层foo函数的this绑定，由于使用call方法将foo函数的this绑定指向{a: 233}，所以输出233。</p>
+</li>
+<li><h3 id="根据优先级判断常见this"><a href="#根据优先级判断常见this" class="headerlink" title="根据优先级判断常见this"></a>根据优先级判断常见this</h3><ul>
+<li>函数是否在new中调用？如果是的话，this绑定的是新创建的对象；</li>
+<li>函数是否通过call, apply或者bind绑定调用？如果是，this绑定的是指定的对象；</li>
+<li>函数是否在某个上下文对象中调用（ var bar = obj.foo() ）？如果是，this绑定到那个上下文对象；</li>
+<li>如果都不是，考虑是否是默认绑定，绑定到全局对象。如果是在严格模式下，则绑定到undefined。</li>
+</ul>
+</li>
+<li><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>在任何函数体外部，无论是否在严格模式，this都指代全局对象。</li>
+<li>在函数内部，this的绑定和函数声明的位置没有任何关系，只取决于函数的调用方式。</li>
+<li>箭头函数会继承外层函数调用的this绑定，在全局作用域中则会绑定到全局对象上。</li>
+</ul>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/30/redux/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -340,19 +719,81 @@
 
       
         
-          <ul>
+          
+            <a id="more"></a>
+<ul>
 <li><h3 id="Redux是什么"><a href="#Redux是什么" class="headerlink" title="Redux是什么"></a>Redux是什么</h3><blockquote>
 <p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</p>
 </blockquote>
+<p>它认为：Web应用是一个状态机，视图与状态一一对应。从架构层面来说，通常希望UI跟数据、逻辑分离，直观体现就是：<strong>UI = render(state)</strong></p>
+</li>
+<li><h3 id="为什么要用Redux"><a href="#为什么要用Redux" class="headerlink" title="为什么要用Redux"></a>为什么要用Redux</h3><p>现在的Web应用涉及大量数据交互、异步操作等，无疑都在增加前端的复杂性，需要维护的state也越来越多。而Redux就是试图让每个state变化都是可预测，将应用中所有的action与state统一管理。</p>
+</li>
+<li><h3 id="Redux的三原则"><a href="#Redux的三原则" class="headerlink" title="Redux的三原则"></a>Redux的三原则</h3><ul>
+<li><strong>单一数据源</strong><br>整个应用state应该只存储在唯一一个的Store中。</li>
+<li><strong>保持状态只是只读</strong><br>不能直接修改state，唯一能改变Store的state方法就是通过触发一个action对象完成。</li>
+<li><strong>数据改变通过纯函数完成</strong><br>action改变state需要通过reducers。</li>
+</ul>
+</li>
+<li><h3 id="Redux工作流程"><a href="#Redux工作流程" class="headerlink" title="Redux工作流程"></a>Redux工作流程</h3><p>在讲Redux的工作流程之前，需了解几个Redux相关的核心概念：</p>
+<ul>
+<li>Action：Action可以看成是应用发出的通知，表示State应该要发生变化了，Action的触发可能是用户对View层的操作也可能是服务器的响应。</li>
+<li>Action Creator：如果有很多种Action，而每种Action都手写的话显得麻烦，所以用定义的Action Creator函数来生成Action。</li>
+<li>Dispatch：Action发出的唯一方法。</li>
+<li>Store：整个应用唯一保存数据的地方。</li>
+<li>State：对Store中保存数据生成某个时点数据快照，该数据集合叫做State。</li>
+<li>Reducer：Action只是描述了State应要发生变化，而Reducer做的是如何改变State。</li>
+</ul>
+<p>具体工作流程：<br>用户通过View（或服务器响应）触发Action，Dispatch方法将Action Creator函数生成的Action派发到Store，Store自动调用Reducer，并向它传入当前State和Action，Reducer返回新的State，State一旦有变化，Store就会通过监听函数来更新View。<br>借用一张图来描述这一过程：<br><img src="http://i.niupic.com/images/2017/09/29/YSaDHU.png" alt="image"><br><strong>严格的单向数据流是 Redux 架构的设计核心。</strong></p>
+</li>
+<li><h3 id="几个Redux核心概念实例"><a href="#几个Redux核心概念实例" class="headerlink" title="几个Redux核心概念实例"></a>几个Redux核心概念实例</h3><p>以从服务器响应文章内容为例<br>Action</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL = <span class="string">'LOAD_ARTICLES_DETAIL'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_SUCCESS = <span class="string">'LOAD_ARTICLES_DETAIL_SUCCESS'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_ERROR = <span class="string">'LOAD_ARTICLES_DETAIL_ERROR'</span></div></pre></td></tr></table></figure>
+<p>Action Creator</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetail = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailSuccess = <span class="function"><span class="params">result</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_SUCCESS,</div><div class="line">  result</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailFailure = <span class="function"><span class="params">error</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_ERROR,</div><div class="line">  error</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>Store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> store = createStore(reducers)</div></pre></td></tr></table></figure>
+<p>Reducer<br>(previousState, action) =&gt; (newState)</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">export</span> <span class="keyword">default</span> (state = initalState, action) =&gt; &#123;</div><div class="line"> <span class="keyword">switch</span> (action.type) &#123;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">true</span>,</div><div class="line">     error: <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_SUCCESS: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">false</span>,</div><div class="line">     articlesDetail: action.result</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_ERROR: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">true</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">default</span>:</div><div class="line">   <span class="keyword">return</span> state</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+<li><h3 id="深入到Redux的源码"><a href="#深入到Redux的源码" class="headerlink" title="深入到Redux的源码"></a>深入到Redux的源码</h3><p>Redux主要源码整体结构：<br><img src="http://i.niupic.com/images/2017/09/30/BTZ7ie.png" alt="image"></p>
+<ul>
+<li>入口文件 index.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123;</div><div class="line">  createStore,</div><div class="line">  combineReducers,</div><div class="line">  bindActionCreators,</div><div class="line">  applyMiddleware,</div><div class="line">  compose</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/30/redux/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
+<p>这是入口文件导出的方法，也是Redux支持的方法，这些方法的实现在主工作流程文件和辅助函数文件，接下来看主工作流程。</p>
+<ul>
+<li>主工作流程文件 createStore.js<br>createStore方法主要是生成Store，看看它做了哪些事儿：<ul>
+<li>getState方法返回了当前State</li>
+<li>subscribe方法传入函数到监听队列和返回取消订阅函数</li>
+<li>dispatch方法调用Reducer，按顺序执行listener，返回Action<br>辅助源码文件：</li>
+</ul>
+</li>
+<li>applyMiddleware.js：用于增强Store<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, preloadedState, enhancer) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> store = createStore(reducer, preloadedState, enhancer)</div><div class="line">    <span class="keyword">let</span> dispatch = store.dispatch</div><div class="line">    <span class="keyword">let</span> chain = []</div><div class="line"></div><div class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</div><div class="line">      getState: store.getState,</div><div class="line">      dispatch: <span class="function">(<span class="params">...args</span>) =&gt;</span> dispatch(...args)</div><div class="line">    &#125;</div><div class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</div><div class="line">    dispatch = compose(...chain)(store.dispatch)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      ...store,</div><div class="line">      dispatch</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>从源码上看，最后是返回了一个Store和一个被更新过的dispatch方法，实现了对Store的增强。</p>
+<ul>
+<li><p>bindActionCreators.js：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">bindActionCreators</span>(<span class="params">actionCreators, dispatch</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreators === <span class="string">'function'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> bindActionCreator(actionCreators, dispatch)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用dispatch把action creator都包装起来，这样可以直接调用它们。</p>
+</li>
+<li>combineReducers.js：当应用比较大的时而拆分Reducer，但是传入Store的Reducer必须是一个函数，所以这个方法的主要功能是用来合并多个Reducer。</li>
+<li><p>compose.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">compose</span>(<span class="params">...funcs</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">0</span>) &#123;</div><div class="line">    <span class="keyword">return</span> <span class="function"><span class="params">arg</span> =&gt;</span> arg</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">if</span> (funcs.length === <span class="number">1</span>) &#123;</div><div class="line">    <span class="keyword">return</span> funcs[<span class="number">0</span>]</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="keyword">return</span> funcs.reduce(<span class="function">(<span class="params">a, b</span>) =&gt;</span> (...args) =&gt; a(b(...args)))</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>compose这个方法，传入的一系列函数，执行的最终结果是把各个函数串联起来。</p>
+</li>
+</ul>
+</li>
+</ul>
+<hr>
+<p>总结：</p>
+<ul>
+<li>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</li>
+<li>严格的单向数据流是 Redux 架构的设计核心。</li>
+<li>UI = render(state)</li>
+</ul>
+
+          
         
       
     </div>
@@ -469,267 +910,16 @@
 
       
         
-          <p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/29/equal/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/25/closure/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="棕小渐的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/25/closure/" itemprop="url">深入理解闭包</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T22:30:54+09:00">
-                2017-09-25
-              </time>
-            
-
-            
-
-            
-          </span>
+          
+            <a id="more"></a>
+<p>前段时间系统性再次学习了JS，重温到 == ，由一个小东西引发对自己学习过程中的一些反思。<br>先来看是啥小东西：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="built_in">console</span>.log(foo == bar);</div><div class="line"><span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<p>== 不是严格相等，对于两个对象使用 ==，由于对象是引用类型，会判断两个对象指向的是否是同一个引用。如果是则true，否则false。<br>试完 == 再试试 &gt; , &lt; 看看：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt; bar);  <span class="comment">// -&gt; false</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt; bar);  <span class="comment">// -&gt; false</span></div></pre></td></tr></table></figure></p>
+<p>自然不能落下&lt;= , =&gt;<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> foo = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">let</span> bar = &#123;</div><div class="line">  b: <span class="number">42</span></div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(foo &lt;= bar);  <span class="comment">// -&gt; true</span></div><div class="line"><span class="built_in">console</span>.log(foo &gt;= bar);  <span class="comment">// -&gt; true</span></div></pre></td></tr></table></figure></p>
+<p>有图有真相：（注：使用Node的REPL进行演示）<br><img src="http://i.niupic.com/images/2017/09/29/CuBfD1.png" alt="image"><br>为什么会这样？开始了查阅文档之路，先看平时习惯查阅的<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript" target="_blank" rel="external">MDN</a>关于<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Equality_comparisons_and_sameness" target="_blank" rel="external">JavaScript 中的相等性判断</a>似乎找不到解释，再查看<a href="http://www.w3school.com.cn/js/pro_js_operators_relational.asp" target="_blank" rel="external">W3school</a>和<a href="http://www.runoob.com/js/js-comparisons.html" target="_blank" rel="external">菜鸟教程</a>相关的都只是陈列一些，都没有找到解释……最后去翻阅<a href="http://www.ecma-international.org/ecma-262/5.1/index.html#sec-11.8.3" target="_blank" rel="external">官方文档</a>才找到了解释：<br><img src="http://i.niupic.com/images/2017/09/29/JhWnEP.png" alt="image"><br>可以将 &gt;= , &lt;= 理解成底层是这样 !(&lt;) , !(&gt;) 调用的。那么为什么是 true 就找到了解释。</p>
+<hr>
+<p>总结：JS学习过程中，它的<a href="http://www.ecma-international.org/ecma-262/5.1/" target="_blank" rel="external">官方文档(ES5.1)</a>往往是翻阅最少的，但它却是JS渊源最权威的记录。</p>
 
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>说一个JS中老生常谈而又不能不说的话题：闭包。首先，先说说什么是闭包：<strong>当函数可以记住并访问所在的词法作用域（在书写代码时函数声明的位置决定的作用域）时，就产生了闭包，即使函数在当前词法作用域之外执行。</strong><br>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/25/closure/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/09/24/RegExBasic/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="leeper">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="棕小渐的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h2 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/24/RegExBasic/" itemprop="url">正则表达式(基础篇)</a></h2>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-24T20:51:23+09:00">
-                2017-09-24
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <ul>
-<li><h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
-<p>正则就是用有限的符号，表达无限的序列。</p>
-</blockquote>
-</li>
-</ul>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2017/09/24/RegExBasic/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
         
       
     </div>
@@ -766,6 +956,10 @@
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -809,7 +1003,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -822,7 +1016,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-count">3</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
