@@ -98,11 +98,11 @@
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
 <meta property="og:title" content="正则表达式(基础篇)">
-<meta property="og:url" content="http://leeper.online/myblog/2017/10/08/RegExBasic/index.html">
+<meta property="og:url" content="http://leeper.online/myblog/2017/10/06/RegExBasic/index.html">
 <meta property="og:site_name" content="棕小渐的博客">
 <meta property="og:description" content="啥是正则表达式？ 正则就是用有限的符号，表达无限的序列。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-08T04:07:31.221Z">
+<meta property="og:updated_time" content="2017-10-11T07:38:18.898Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="正则表达式(基础篇)">
 <meta name="twitter:description" content="啥是正则表达式？ 正则就是用有限的符号，表达无限的序列。">
@@ -134,7 +134,7 @@
 
 
 
-  <link rel="canonical" href="http://leeper.online/myblog/2017/10/08/RegExBasic/"/>
+  <link rel="canonical" href="http://leeper.online/myblog/2017/10/06/RegExBasic/"/>
 
 
 
@@ -273,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/08/RegExBasic/">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/06/RegExBasic/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="leeper">
@@ -302,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-08T12:07:31+08:00">
-                2017-10-08
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-06T09:58:20+08:00">
+                2017-10-06
               </time>
             
 
@@ -340,35 +340,40 @@
       
 
       
-        <ul>
-<li><h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
-<p>正则就是用有限的符号，表达无限的序列。</p>
-<a id="more"></a>
+        <h3 id="啥是正则表达式？"><a href="#啥是正则表达式？" class="headerlink" title="啥是正则表达式？"></a>啥是正则表达式？</h3><blockquote>
+<p>正则就是用有限的符号，表达无限的序列。  </p>
 </blockquote>
-<p>记住一句重要的话，<strong>正则表达式是匹配模式，要么匹配字符，要么匹配位置。</strong></p>
-</li>
-<li><h3 id="精确匹配"><a href="#精确匹配" class="headerlink" title="精确匹配"></a>精确匹配</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/abc/ <span class="comment">// 匹配 abc</span></div><div class="line">/<span class="number">123</span>/ <span class="comment">// 匹配 123</span></div></pre></td></tr></table></figure>
-<p>正则的强大在于它能实现模糊匹配。</p>
-</li>
-<li><h3 id="模糊匹配："><a href="#模糊匹配：" class="headerlink" title="模糊匹配："></a>模糊匹配：</h3><p>模糊匹配可分为：<strong>横向匹配</strong>和<strong>纵向匹配</strong>。</p>
-<h4 id="1-横向模糊匹配："><a href="#1-横向模糊匹配：" class="headerlink" title="1. 横向模糊匹配："></a>1. 横向模糊匹配：</h4><blockquote>
+<a id="more"></a>
+<p>  记住一句重要的话，<strong>正则表达式是匹配模式，要么匹配字符，要么匹配位置。</strong></p>
+<h3 id="精确匹配"><a href="#精确匹配" class="headerlink" title="精确匹配"></a>精确匹配</h3>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/abc/ <span class="comment">// 匹配 abc</span></div><div class="line">/<span class="number">123</span>/ <span class="comment">// 匹配 123</span></div></pre></td></tr></table></figure>
+<p>  正则的强大在于它能实现模糊匹配。</p>
+<h3 id="模糊匹配："><a href="#模糊匹配：" class="headerlink" title="模糊匹配："></a>模糊匹配：</h3><p>  模糊匹配可分为：<strong>横向匹配</strong>和<strong>纵向匹配</strong>。</p>
+<ol>
+<li><p>横向模糊匹配：</p>
+<blockquote>
 <p>横向模糊指的是，一个正则可匹配的字符串的长度不是固定的，可以是多种情况的。</p>
 </blockquote>
-<p> 实现的方式是使用量词。譬如{m,n}，表示连续出现最少m次，最多n次。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/ab&#123;<span class="number">2</span>,<span class="number">5</span>&#125;c/</div><div class="line"><span class="comment">//表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”</span></div></pre></td></tr></table></figure>
-<h4 id="2-纵向模糊匹配"><a href="#2-纵向模糊匹配" class="headerlink" title="2. 纵向模糊匹配"></a>2. 纵向模糊匹配</h4><blockquote>
+<p>实现的方式是使用量词。譬如{m,n}，表示连续出现最少m次，最多n次。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/ab&#123;<span class="number">2</span>,<span class="number">5</span>&#125;c/</div><div class="line"><span class="comment">//表示匹配这样一个字符串：第一个字符是“a”，接下来是2到5个字符“b”，最后是字符“c”</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>纵向模糊匹配</p>
+<blockquote>
 <p>纵向模糊指的是，一个正则匹配的字符串，具体到某一位字符时，它可以不是某个确定的字符，可以有多种可能。</p>
 </blockquote>
-<p> 实现的方式是使用字符组。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/a[<span class="number">123</span>]b/</div><div class="line"><span class="comment">//可以匹配如下三种字符串："a1b"、"a2b"、"a3b"</span></div></pre></td></tr></table></figure>
+<p>实现的方式是使用字符组。  </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/a[<span class="number">123</span>]b/</div><div class="line"><span class="comment">//可以匹配如下三种字符串："a1b"、"a2b"、"a3b"</span></div></pre></td></tr></table></figure>
 </li>
-<li><h3 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h3><h4 id="1-范围表示法"><a href="#1-范围表示法" class="headerlink" title="1. 范围表示法"></a>1. 范围表示法</h4><p> 如果字符组里的字符特别多的话，可以使用范围表示法。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[<span class="number">1</span><span class="number">-6</span>a-fG-M]/</div><div class="line"><span class="comment">//匹配[123456abcdefGHIJKLM]</span></div></pre></td></tr></table></figure>
-<p> 如果连字符有特殊用途，不能写成[a-z]，可以写成如下的方式：[-az]或[az-]或[a-z]，总之不会让引擎认为是范围表示法就行了。</p>
-<h4 id="2-排除字符组"><a href="#2-排除字符组" class="headerlink" title="2. 排除字符组"></a>2. 排除字符组</h4><p> 在纵向模糊匹配中可能还有的一种情况是，某位字符可以是任何字符，但就不能是”a”、”b”、”c”。这就是排除字符组（反义字符组）的概念。</p>
- <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[^abc]/</div><div class="line"><span class="comment">//表示是一个除"a"、"b"、"c"之外的任意一个字符。</span></div></pre></td></tr></table></figure>
-<p> 字符组的第一位放^（脱字符），表示求反的概念。同样，它也有相应的范围表示法。</p>
-<h4 id="3-常见的简写形式"><a href="#3-常见的简写形式" class="headerlink" title="3. 常见的简写形式"></a>3. 常见的简写形式</h4><ul>
+</ol>
+<h3 id="字符组"><a href="#字符组" class="headerlink" title="字符组"></a>字符组</h3><pre><code>1. 范围表示法
+如果字符组里的字符特别多的话，可以使用范围表示法。
+</code></pre>   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[<span class="number">1</span><span class="number">-6</span>a-fG-M]/</div><div class="line"><span class="comment">//匹配[123456abcdefGHIJKLM]</span></div></pre></td></tr></table></figure>
+<pre><code>如果连字符有特殊用途，不能写成[a-z]，可以写成如下的方式：[-az]或[az-]或[a\-z]，总之不会让引擎认为是范围表示法就行了。  
+2. 排除字符组
+在纵向模糊匹配中可能还有的一种情况是，某位字符可以是任何字符，但就不能是&quot;a&quot;、&quot;b&quot;、&quot;c&quot;。这就是排除字符组（反义字符组）的概念。
+</code></pre>   <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/[^abc]/</div><div class="line"><span class="comment">//表示是一个除"a"、"b"、"c"之外的任意一个字符。</span></div></pre></td></tr></table></figure>
+<pre><code>字符组的第一位放^（脱字符），表示求反的概念。同样，它也有相应的范围表示法。
+3. 常见的简写形式
+</code></pre><ul>
 <li>\d： 等价于[0-9]，表示是一位数字。记忆方式：其英文是digit（数字）</li>
 <li>\D： 等价于[^0-9]，表示除数字外的任意字符</li>
 <li>\w： 等价于[0-9a-zA-Z_]，表示数字、大小写字母和下划线。记忆方式：w是word的简写，也称单词字符</li>
@@ -376,7 +381,7 @@
 <li>\s： 等价于[ \t\v\n\r\f]，表示空白符，包括空格、水平制表符、垂直制表符、换行符、回车符、换页符。记忆方式：s是space character的首字母</li>
 <li>\S： 等价于[^ \t\v\n\r\f]。 非空白符</li>
 </ul>
-</li>
+<ul>
 <li><h3 id="量词"><a href="#量词" class="headerlink" title="量词"></a>量词</h3><p>量词也称重复。</p>
 <h4 id="1-简写形式"><a href="#1-简写形式" class="headerlink" title="1. 简写形式"></a>1. 简写形式</h4><ul>
 <li>{m,}  表示至少出现m次</li>
@@ -443,8 +448,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/08/this/" rel="next" title="全面理解JavaScript中的this">
-                <i class="fa fa-chevron-left"></i> 全面理解JavaScript中的this
+              <a href="/2017/09/30/redux/" rel="next" title="深入浅出理解Redux">
+                <i class="fa fa-chevron-left"></i> 深入浅出理解Redux
               </a>
             
           </div>
@@ -452,6 +457,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/08/this/" rel="prev" title="全面理解JavaScript中的this">
+                全面理解JavaScript中的this <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -528,7 +537,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -541,7 +550,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -576,7 +585,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#啥是正则表达式？"><span class="nav-number">1.</span> <span class="nav-text">啥是正则表达式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精确匹配"><span class="nav-number">2.</span> <span class="nav-text">精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊匹配："><span class="nav-number">3.</span> <span class="nav-text">模糊匹配：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-横向模糊匹配："><span class="nav-number">3.1.</span> <span class="nav-text">1. 横向模糊匹配：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-纵向模糊匹配"><span class="nav-number">3.2.</span> <span class="nav-text">2. 纵向模糊匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符组"><span class="nav-number">4.</span> <span class="nav-text">字符组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-范围表示法"><span class="nav-number">4.1.</span> <span class="nav-text">1. 范围表示法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-排除字符组"><span class="nav-number">4.2.</span> <span class="nav-text">2. 排除字符组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-常见的简写形式"><span class="nav-number">4.3.</span> <span class="nav-text">3. 常见的简写形式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#量词"><span class="nav-number">5.</span> <span class="nav-text">量词</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-简写形式"><span class="nav-number">5.1.</span> <span class="nav-text">1. 简写形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-贪婪匹配"><span class="nav-number">5.2.</span> <span class="nav-text">2. 贪婪匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-惰性匹配"><span class="nav-number">5.3.</span> <span class="nav-text">3. 惰性匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多选分支"><span class="nav-number">6.</span> <span class="nav-text">多选分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析"><span class="nav-number">7.</span> <span class="nav-text">案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-匹配16进制颜色值"><span class="nav-number">7.1.</span> <span class="nav-text">1. 匹配16进制颜色值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-匹配时间"><span class="nav-number">7.2.</span> <span class="nav-text">2. 匹配时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-匹配日期"><span class="nav-number">7.3.</span> <span class="nav-text">3. 匹配日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-window操作系统文件路径"><span class="nav-number">7.4.</span> <span class="nav-text">4. window操作系统文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-匹配id"><span class="nav-number">7.5.</span> <span class="nav-text">5. 匹配id</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#啥是正则表达式？"><span class="nav-number">1.</span> <span class="nav-text">啥是正则表达式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#精确匹配"><span class="nav-number">2.</span> <span class="nav-text">精确匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模糊匹配："><span class="nav-number">3.</span> <span class="nav-text">模糊匹配：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符组"><span class="nav-number">4.</span> <span class="nav-text">字符组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#量词"><span class="nav-number">5.</span> <span class="nav-text">量词</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-简写形式"><span class="nav-number">5.1.</span> <span class="nav-text">1. 简写形式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-贪婪匹配"><span class="nav-number">5.2.</span> <span class="nav-text">2. 贪婪匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-惰性匹配"><span class="nav-number">5.3.</span> <span class="nav-text">3. 惰性匹配</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#多选分支"><span class="nav-number">6.</span> <span class="nav-text">多选分支</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#案例分析"><span class="nav-number">7.</span> <span class="nav-text">案例分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-匹配16进制颜色值"><span class="nav-number">7.1.</span> <span class="nav-text">1. 匹配16进制颜色值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-匹配时间"><span class="nav-number">7.2.</span> <span class="nav-text">2. 匹配时间</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-匹配日期"><span class="nav-number">7.3.</span> <span class="nav-text">3. 匹配日期</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-window操作系统文件路径"><span class="nav-number">7.4.</span> <span class="nav-text">4. window操作系统文件路径</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-匹配id"><span class="nav-number">7.5.</span> <span class="nav-text">5. 匹配id</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#小结"><span class="nav-number">8.</span> <span class="nav-text">小结</span></a></li></ol></div>
             
 
           </div>

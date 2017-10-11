@@ -78,7 +78,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="React 架构," />
+  <meta name="keywords" content="React," />
 
 
 
@@ -95,7 +95,7 @@
 
 
 <meta name="description" content="Redux是什么 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。">
-<meta name="keywords" content="React 架构">
+<meta name="keywords" content="React">
 <meta property="og:type" content="article">
 <meta property="og:title" content="深入浅出理解Redux">
 <meta property="og:url" content="http://leeper.online/myblog/2017/09/30/redux/index.html">
@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.niupic.com/images/2017/09/29/YSaDHU.png">
 <meta property="og:image" content="http://i.niupic.com/images/2017/09/30/BTZ7ie.png">
-<meta property="og:updated_time" content="2017-10-08T04:07:21.757Z">
+<meta property="og:updated_time" content="2017-10-11T07:47:24.886Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="深入浅出理解Redux">
 <meta name="twitter:description" content="Redux是什么 Redux 是 JavaScript 状态容器，提供可预测化的状态管理。">
@@ -343,59 +343,47 @@
       
 
       
-        <ul>
-<li><h3 id="Redux是什么"><a href="#Redux是什么" class="headerlink" title="Redux是什么"></a>Redux是什么</h3><blockquote>
-<p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</p>
-<a id="more"></a>
-<p>它认为：Web应用是一个状态机，视图与状态一一对应。从架构层面来说，通常希望UI跟数据、逻辑分离，直观体现就是：<strong>UI = render(state)</strong></p>
+        <h3 id="Redux是什么"><a href="#Redux是什么" class="headerlink" title="Redux是什么"></a>Redux是什么</h3><blockquote>
+<p>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。<br><a id="more"></a>  </p>
 </blockquote>
-</li>
-<li><h3 id="为什么要用Redux"><a href="#为什么要用Redux" class="headerlink" title="为什么要用Redux"></a>为什么要用Redux</h3><p>现在的Web应用涉及大量数据交互、异步操作等，无疑都在增加前端的复杂性，需要维护的state也越来越多。而Redux就是试图让每个state变化都是可预测，将应用中所有的action与state统一管理。</p>
-</li>
-<li><h3 id="Redux的三原则"><a href="#Redux的三原则" class="headerlink" title="Redux的三原则"></a>Redux的三原则</h3><ul>
+<p>它认为：Web应用是一个状态机，视图与状态一一对应。从架构层面来说，通常希望UI跟数据、逻辑分离，直观体现就是：<strong>UI = render(state)</strong></p>
+<h3 id="为什么要用Redux"><a href="#为什么要用Redux" class="headerlink" title="为什么要用Redux"></a>为什么要用Redux</h3><p>  现在的Web应用涉及大量数据交互、异步操作等，无疑都在增加前端的复杂性，需要维护的state也越来越多。而Redux就是试图让每个state变化都是可预测，将应用中所有的action与state统一管理。</p>
+<h3 id="Redux的三原则"><a href="#Redux的三原则" class="headerlink" title="Redux的三原则"></a>Redux的三原则</h3><ul>
 <li><strong>单一数据源</strong><br>整个应用state应该只存储在唯一一个的Store中。</li>
 <li><strong>保持状态只是只读</strong><br>不能直接修改state，唯一能改变Store的state方法就是通过触发一个action对象完成。</li>
 <li><strong>数据改变通过纯函数完成</strong><br>action改变state需要通过reducers。</li>
 </ul>
-</li>
-<li><h3 id="Redux工作流程"><a href="#Redux工作流程" class="headerlink" title="Redux工作流程"></a>Redux工作流程</h3><p>在讲Redux的工作流程之前，需了解几个Redux相关的核心概念：</p>
+<h3 id="Redux工作流程"><a href="#Redux工作流程" class="headerlink" title="Redux工作流程"></a>Redux工作流程</h3><p>  在讲Redux的工作流程之前，需了解几个Redux相关的核心概念：</p>
 <ul>
 <li>Action：Action可以看成是应用发出的通知，表示State应该要发生变化了，Action的触发可能是用户对View层的操作也可能是服务器的响应。</li>
 <li>Action Creator：如果有很多种Action，而每种Action都手写的话显得麻烦，所以用定义的Action Creator函数来生成Action。</li>
 <li>Dispatch：Action发出的唯一方法。</li>
 <li>Store：整个应用唯一保存数据的地方。</li>
 <li>State：对Store中保存数据生成某个时点数据快照，该数据集合叫做State。</li>
-<li>Reducer：Action只是描述了State应要发生变化，而Reducer做的是如何改变State。</li>
-</ul>
+<li><p>Reducer：Action只是描述了State应要发生变化，而Reducer做的是如何改变State。</p>
 <p>具体工作流程：<br>用户通过View（或服务器响应）触发Action，Dispatch方法将Action Creator函数生成的Action派发到Store，Store自动调用Reducer，并向它传入当前State和Action，Reducer返回新的State，State一旦有变化，Store就会通过监听函数来更新View。<br>借用一张图来描述这一过程：<br><img src="http://i.niupic.com/images/2017/09/29/YSaDHU.png" alt="image"><br><strong>严格的单向数据流是 Redux 架构的设计核心。</strong></p>
 </li>
-<li><h3 id="几个Redux核心概念实例"><a href="#几个Redux核心概念实例" class="headerlink" title="几个Redux核心概念实例"></a>几个Redux核心概念实例</h3><p>以从服务器响应文章内容为例<br>Action</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL = <span class="string">'LOAD_ARTICLES_DETAIL'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_SUCCESS = <span class="string">'LOAD_ARTICLES_DETAIL_SUCCESS'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_ERROR = <span class="string">'LOAD_ARTICLES_DETAIL_ERROR'</span></div></pre></td></tr></table></figure>
-<p>Action Creator</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetail = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailSuccess = <span class="function"><span class="params">result</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_SUCCESS,</div><div class="line">  result</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailFailure = <span class="function"><span class="params">error</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_ERROR,</div><div class="line">  error</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>Store</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> store = createStore(reducers)</div></pre></td></tr></table></figure>
-<p>Reducer<br>(previousState, action) =&gt; (newState)</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">export</span> <span class="keyword">default</span> (state = initalState, action) =&gt; &#123;</div><div class="line"> <span class="keyword">switch</span> (action.type) &#123;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">true</span>,</div><div class="line">     error: <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_SUCCESS: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">false</span>,</div><div class="line">     articlesDetail: action.result</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_ERROR: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">true</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">default</span>:</div><div class="line">   <span class="keyword">return</span> state</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><h3 id="深入到Redux的源码"><a href="#深入到Redux的源码" class="headerlink" title="深入到Redux的源码"></a>深入到Redux的源码</h3><p>Redux主要源码整体结构：<br><img src="http://i.niupic.com/images/2017/09/30/BTZ7ie.png" alt="image"></p>
-<ul>
-<li>入口文件 index.js<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123;</div><div class="line">  createStore,</div><div class="line">  combineReducers,</div><div class="line">  bindActionCreators,</div><div class="line">  applyMiddleware,</div><div class="line">  compose</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
 </ul>
-<p>这是入口文件导出的方法，也是Redux支持的方法，这些方法的实现在主工作流程文件和辅助函数文件，接下来看主工作流程。</p>
+<h3 id="几个Redux核心概念实例"><a href="#几个Redux核心概念实例" class="headerlink" title="几个Redux核心概念实例"></a>几个Redux核心概念实例</h3><p>  以从服务器响应文章内容为例<br>  Action<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL = <span class="string">'LOAD_ARTICLES_DETAIL'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_SUCCESS = <span class="string">'LOAD_ARTICLES_DETAIL_SUCCESS'</span></div><div class="line"><span class="keyword">const</span> LOAD_ARTICLES_DETAIL_ERROR = <span class="string">'LOAD_ARTICLES_DETAIL_ERROR'</span></div></pre></td></tr></table></figure></p>
+<p>  Action Creator<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetail = <span class="function"><span class="params">()</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailSuccess = <span class="function"><span class="params">result</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_SUCCESS,</div><div class="line">  result</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">const</span> loadArticlesDetailFailure = <span class="function"><span class="params">error</span> =&gt;</span> (&#123;</div><div class="line">  type: LOAD_ARTICLES_DETAIL_ERROR,</div><div class="line">  error</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p>  Store<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> store = createStore(reducers)</div></pre></td></tr></table></figure></p>
+<p>  Reducer<br>  (previousState, action) =&gt; (newState)<br>  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"> <span class="keyword">export</span> <span class="keyword">default</span> (state = initalState, action) =&gt; &#123;</div><div class="line"> <span class="keyword">switch</span> (action.type) &#123;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">true</span>,</div><div class="line">     error: <span class="literal">false</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_SUCCESS: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">false</span>,</div><div class="line">     articlesDetail: action.result</div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">case</span> LOAD_ARTICLES_DETAIL_ERROR: &#123;</div><div class="line">   <span class="keyword">return</span> &#123;</div><div class="line">     ...state,</div><div class="line">     loading: <span class="literal">false</span>,</div><div class="line">     error: <span class="literal">true</span></div><div class="line">   &#125;</div><div class="line"> &#125;</div><div class="line"> <span class="keyword">default</span>:</div><div class="line">   <span class="keyword">return</span> state</div><div class="line"> &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<h3 id="深入到Redux的源码"><a href="#深入到Redux的源码" class="headerlink" title="深入到Redux的源码"></a>深入到Redux的源码</h3><p>  Redux主要源码整体结构：<br>  <img src="http://i.niupic.com/images/2017/09/30/BTZ7ie.png" alt="image"></p>
 <ul>
+<li><p>入口文件 index.js</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> &#123;</div><div class="line">  createStore,</div><div class="line">  combineReducers,</div><div class="line">  bindActionCreators,</div><div class="line">  applyMiddleware,</div><div class="line">  compose</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这是入口文件导出的方法，也是Redux支持的方法，这些方法的实现在主工作流程文件和辅助函数文件，接下来看主工作流程。</p>
+</li>
 <li>主工作流程文件 createStore.js<br>createStore方法主要是生成Store，看看它做了哪些事儿：<ul>
 <li>getState方法返回了当前State</li>
 <li>subscribe方法传入函数到监听队列和返回取消订阅函数</li>
 <li>dispatch方法调用Reducer，按顺序执行listener，返回Action<br>辅助源码文件：</li>
 </ul>
 </li>
-<li>applyMiddleware.js：用于增强Store<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, preloadedState, enhancer) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> store = createStore(reducer, preloadedState, enhancer)</div><div class="line">    <span class="keyword">let</span> dispatch = store.dispatch</div><div class="line">    <span class="keyword">let</span> chain = []</div><div class="line"></div><div class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</div><div class="line">      getState: store.getState,</div><div class="line">      dispatch: <span class="function">(<span class="params">...args</span>) =&gt;</span> dispatch(...args)</div><div class="line">    &#125;</div><div class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</div><div class="line">    dispatch = compose(...chain)(store.dispatch)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      ...store,</div><div class="line">      dispatch</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
+<li><p>applyMiddleware.js：用于增强Store</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">applyMiddleware</span>(<span class="params">...middlewares</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">createStore</span>) =&gt;</span> (reducer, preloadedState, enhancer) =&gt; &#123;</div><div class="line">    <span class="keyword">const</span> store = createStore(reducer, preloadedState, enhancer)</div><div class="line">    <span class="keyword">let</span> dispatch = store.dispatch</div><div class="line">    <span class="keyword">let</span> chain = []</div><div class="line"></div><div class="line">    <span class="keyword">const</span> middlewareAPI = &#123;</div><div class="line">      getState: store.getState,</div><div class="line">      dispatch: <span class="function">(<span class="params">...args</span>) =&gt;</span> dispatch(...args)</div><div class="line">    &#125;</div><div class="line">    chain = middlewares.map(<span class="function"><span class="params">middleware</span> =&gt;</span> middleware(middlewareAPI))</div><div class="line">    dispatch = compose(...chain)(store.dispatch)</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">      ...store,</div><div class="line">      dispatch</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>从源码上看，最后是返回了一个Store和一个被更新过的dispatch方法，实现了对Store的增强。</p>
-<ul>
+</li>
 <li><p>bindActionCreators.js：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">bindActionCreators</span>(<span class="params">actionCreators, dispatch</span>) </span>&#123;</div><div class="line">  <span class="keyword">if</span> (<span class="keyword">typeof</span> actionCreators === <span class="string">'function'</span>) &#123;</div><div class="line">    <span class="keyword">return</span> bindActionCreator(actionCreators, dispatch)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>使用dispatch把action creator都包装起来，这样可以直接调用它们。</p>
@@ -406,11 +394,8 @@
 <p>compose这个方法，传入的一系列函数，执行的最终结果是把各个函数串联起来。</p>
 </li>
 </ul>
-</li>
-</ul>
 <hr>
-<p>总结：</p>
-<ul>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ul>
 <li>Redux 是 JavaScript 状态容器，提供可预测化的状态管理。</li>
 <li>严格的单向数据流是 Redux 架构的设计核心。</li>
 <li>UI = render(state)</li>
@@ -432,7 +417,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/React-架构/" rel="tag"># React 架构</a>
+            <a href="/tags/React/" rel="tag"># React</a>
           
         </div>
       
@@ -455,8 +440,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2017/10/08/this/" rel="prev" title="全面理解JavaScript中的this">
-                全面理解JavaScript中的this <i class="fa fa-chevron-right"></i>
+              <a href="/2017/10/06/RegExBasic/" rel="prev" title="正则表达式(基础篇)">
+                正则表达式(基础篇) <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -534,7 +519,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -547,7 +532,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -582,7 +567,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux是什么"><span class="nav-number">1.</span> <span class="nav-text">Redux是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要用Redux"><span class="nav-number">2.</span> <span class="nav-text">为什么要用Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux的三原则"><span class="nav-number">3.</span> <span class="nav-text">Redux的三原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux工作流程"><span class="nav-number">4.</span> <span class="nav-text">Redux工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个Redux核心概念实例"><span class="nav-number">5.</span> <span class="nav-text">几个Redux核心概念实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入到Redux的源码"><span class="nav-number">6.</span> <span class="nav-text">深入到Redux的源码</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux是什么"><span class="nav-number">1.</span> <span class="nav-text">Redux是什么</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么要用Redux"><span class="nav-number">2.</span> <span class="nav-text">为什么要用Redux</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux的三原则"><span class="nav-number">3.</span> <span class="nav-text">Redux的三原则</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redux工作流程"><span class="nav-number">4.</span> <span class="nav-text">Redux工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#几个Redux核心概念实例"><span class="nav-number">5.</span> <span class="nav-text">几个Redux核心概念实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#深入到Redux的源码"><span class="nav-number">6.</span> <span class="nav-text">深入到Redux的源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结："><span class="nav-number">7.</span> <span class="nav-text">总结：</span></a></li></ol></div>
             
 
           </div>
