@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="棕小渐的博客">
 <meta property="og:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-11T07:45:22.257Z">
+<meta property="og:updated_time" content="2017-10-17T12:59:25.471Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="全面理解JavaScript中的this">
 <meta name="twitter:description" content="this在JS中似乎可以视而不见，但不去正视它学到的就只是残缺的JS。">
@@ -361,7 +361,7 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> a = <span class="string">"global a"</span>;</div><div class="line">setTimeout(obj.foo, <span class="number">0</span>) <span class="comment">// -&gt; 'global a'</span></div></pre></td></tr></table></figure>
 <p>参数传入的是函数会导致被传入的这个函数this绑定丢失，this会指向默认的全局对象。<br>bind方法可以解决上this绑定丢失的情况：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> obj = &#123;</div><div class="line">  a: <span class="number">233</span>,</div><div class="line">  foo: foo</div><div class="line">&#125;;</div><div class="line"><span class="keyword">var</span> a = <span class="string">"global a"</span>;</div><div class="line"><span class="keyword">var</span> bar = foo.bind(obj);</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">doFn</span> (<span class="params">fn</span>) </span>&#123;</div><div class="line">  fn();</div><div class="line">&#125;</div><div class="line">doFn(bar); <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
-<p>fn.bind(某个对象)会创建一个与fn具有相同函数体和作用域的新函数，在这个新函数中，this将永久地绑定到了<br>bind的第一个参数，无论这个函数如何被调用。</p>
+<p>fn.bind(某个对象)会创建一个与fn具有相同函数体和作用域的新函数，在这个新函数中，this将永久地绑定到了bind的第一个参数，无论这个函数如何被调用。</p>
 </li>
 <li><p>call与apply方法<br>这两个方法的第一个参数是一个对象，是给this准备的，接着在调用函数时将其绑定到this。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> obj = &#123;</div><div class="line">  a:<span class="number">233</span></div><div class="line">&#125;;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.a);</div><div class="line">&#125;</div><div class="line">foo.call(obj) <span class="comment">// -&gt; 233</span></div></pre></td></tr></table></figure>
@@ -511,7 +511,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>

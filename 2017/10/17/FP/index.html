@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数式编程">
+<meta property="og:url" content="http://leeper.online/myblog/2017/10/17/FP/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://i.niupic.com/images/2017/10/16/45WWvA.png">
+<meta property="og:updated_time" content="2017-10-17T13:58:12.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="函数式编程">
+<meta name="twitter:description" content="面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。">
+<meta name="twitter:image" content="https://i.niupic.com/images/2017/10/16/45WWvA.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/10/17/FP/"/>
+
+
+
+
+
+  <title>函数式编程 | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/17/FP/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">函数式编程</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-17T20:57:38+08:00">
+                2017-10-17
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。</p>
+<a id="more"></a>
+<h3 id="什么是函数式编程-（通常简称为-FP）"><a href="#什么是函数式编程-（通常简称为-FP）" class="headerlink" title="什么是函数式编程 （通常简称为 FP）"></a>什么是函数式编程 （通常简称为 FP）</h3><blockquote>
+<p>是指通过复合<strong>纯函数</strong>来构建软件的过程，它避免了<strong>共享的状态</strong>、<strong>易变的数据</strong>、以及<strong>副作用</strong>。函数式编程是<strong>声明式</strong>而不是<strong>命令式</strong>，并且应用程序状态通过纯函数流转。</p>
+</blockquote>
+<h3 id="理解函数式编程中核心概念"><a href="#理解函数式编程中核心概念" class="headerlink" title="理解函数式编程中核心概念"></a>理解函数式编程中核心概念</h3><ul>
+<li>纯函数（Pure functions）</li>
+<li>函数复合（Function composition）</li>
+<li>避免共享状态（Avoid shared state）</li>
+<li>避免改变状态（Avoid mutating state）</li>
+<li>避免副作用（Avoid side effects）</li>
+<li>声明式与命令式（Declarative and Imperative）</li>
+</ul>
+<h4 id="纯函数"><a href="#纯函数" class="headerlink" title="纯函数"></a>纯函数</h4><p>纯函数是满足如下条件的函数：</p>
+<ul>
+<li>相同输入总是会返回相同的输出</li>
+<li>不产生副作用</li>
+<li>不依赖于外部状态<br>JS中纯函数的例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">String</span>.prototype.toUpperCase  </div><div class="line"><span class="built_in">Array</span>.prototype.map</div><div class="line"><span class="built_in">Function</span>.prototype.bind</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>JS中非纯函数的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Date</span>.now</div><div class="line"><span class="built_in">Math</span>.random</div><div class="line"><span class="built_in">Array</span>.prototype.sort</div><div class="line"><span class="built_in">document</span>.body.appendChild</div></pre></td></tr></table></figure></p>
+<p>纯函数的好处：</p>
+<ol>
+<li>易于测试（上下文无关）</li>
+<li>可并行计算（时序无关）</li>
+<li>bug 自限性（问题不会扩散）</li>
+</ol>
+<h4 id="函数复合"><a href="#函数复合" class="headerlink" title="函数复合"></a>函数复合</h4><blockquote>
+<p>函数复合是结合两个或多个函数，从而产生一个新函数或进行某些计算的过程。</p>
+</blockquote>
+<p>在 JavaScript 中相当于执行 f(g(x))。  </p>
+<h4 id="共享状态"><a href="#共享状态" class="headerlink" title="共享状态"></a>共享状态</h4><blockquote>
+<p>共享状态 的意思是：任意变量、对象或者内存空间存在于共享作用域（包括全局作用域和闭包作用域）下，或者作为对象的属性在各个作用域之间被传递。</p>
+</blockquote>
+<p>通常，在面向对象编程中，对象以添加属性到其他对象上的方式在作用域之间共享。与面向对象编程不同，函数式编程避免共享状态，它依赖于不可变数据结构和纯粹的计算过程来从已存在的数据中派生出新的数据。<br>共享状态的一个常见问题是改变函数调用次序函数调用的次序可能会改变函数调用的结果，进而可能导致一连串的错误：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> x = &#123;</div><div class="line">  val: <span class="number">2</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">const</span> x1 = <span class="function"><span class="params">()</span> =&gt;</span> x.val += <span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> x2 = <span class="function"><span class="params">()</span> =&gt;</span> x.val *= <span class="number">2</span>;</div><div class="line">x1(); <span class="comment">// -&gt; 3</span></div><div class="line">x2(); <span class="comment">// -&gt; 6</span></div></pre></td></tr></table></figure></p>
+<p>下面的例子与上面的相同，除了函数调用的次序不同：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> x = &#123;</div><div class="line">  val: <span class="number">2</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">const</span> x1 = <span class="function"><span class="params">()</span> =&gt;</span> x.val += <span class="number">1</span>;</div><div class="line"><span class="keyword">const</span> x2 = <span class="function"><span class="params">()</span> =&gt;</span> x.val *= <span class="number">2</span>;</div><div class="line">x2(); <span class="comment">// -&gt; 4</span></div><div class="line">x1(); <span class="comment">// -&gt; 5</span></div></pre></td></tr></table></figure></p>
+<p>如果避免共享状态，就不会改变函数内容，或者改变函数调用的时序不会波及和破坏程序的其他部分：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> x = &#123;</div><div class="line">  val: <span class="number">2</span></div><div class="line">&#125;;</div><div class="line"><span class="keyword">const</span> x1 = <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">Object</span>.assign(&#123;&#125;, x, &#123; <span class="attr">val</span>: x.val + <span class="number">1</span>&#125;);</div><div class="line"><span class="keyword">const</span> x2 = <span class="function"><span class="params">x</span> =&gt;</span> <span class="built_in">Object</span>.assign(&#123;&#125;, x, &#123; <span class="attr">val</span>: x.val * <span class="number">2</span>&#125;);</div><div class="line"></div><div class="line">x1(x); <span class="comment">// -&gt; 3</span></div><div class="line">x2(x); <span class="comment">// -&gt; 4</span></div><div class="line"></div><div class="line"><span class="comment">/**</span></div><div class="line"><span class="comment">x2(x); // -&gt; 4</span></div><div class="line"><span class="comment">x1(x); // -&gt; 3</span></div><div class="line"><span class="comment">*/</span></div></pre></td></tr></table></figure></p>
+<h4 id="不修改状态"><a href="#不修改状态" class="headerlink" title="不修改状态"></a>不修改状态</h4><p>在其他类型的语言中，变量往往用来保存”状态”。而函数式编程只是返回新的值，不修改系统变量，即是无破坏性的数据转换。</p>
+<h4 id="副作用"><a href="#副作用" class="headerlink" title="副作用"></a>副作用</h4><blockquote>
+<p>副作用是指除了函数返回值以外，任何在函数调用之外观察到的应用程序状态改变。</p>
+</blockquote>
+<p>副作用包括：</p>
+<ul>
+<li>改变了任何外部变量或对象属性</li>
+<li>写文件</li>
+<li>发网络请求</li>
+<li>在屏幕输出</li>
+<li>调用另一个有副作用的函数  </li>
+</ul>
+<p>在函数式编程中，副作用被尽可能避免。</p>
+<h4 id="声明式与命令式"><a href="#声明式与命令式" class="headerlink" title="声明式与命令式"></a>声明式与命令式</h4><ul>
+<li>命令式：程序花费大量代码来描述用来达成期望结果的特定步骤，即”How to do”</li>
+<li>声明式：程序抽象了控制流过程，花费大量代码描述的是数据流，即”What to do”  </li>
+</ul>
+<p>函数式编程是一个声明式范式，意思是说程序逻辑不需要通过明确描述控制流程来表达。<br>命令式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</div><div class="line"><span class="keyword">let</span> map1 = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; list.length; i++) &#123;</div><div class="line">  map1.push(list[i] * <span class="number">2</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>声明式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</div><div class="line"><span class="keyword">let</span> map2 = list.map(<span class="function"><span class="params">x</span> =&gt;</span> <span class="number">2</span> * x);</div></pre></td></tr></table></figure></p>
+<p>再来看声明式例子中引出的两个重要概念：<br><img src="https://i.niupic.com/images/2017/10/16/45WWvA.png" alt=""><br>在讲容器前不得不提什么是范畴：</p>
+<blockquote>
+<p>彼此之间存在某种关系的概念、事物、对象等等，都构成”范畴”。</p>
+</blockquote>
+<p>范畴的数学模型简单理解就是：”集合 + 函数”。</p>
+<ul>
+<li>容器（Container）：可以把”范畴”想象成是一个容器，里面包含：值和值的变形（函数）</li>
+<li>函子（Functor）：是一个有接口的容器，能够遍历其中的值。能够将容器里面的每一个值，映射到另一个容器。</li>
+</ul>
+<h3 id="函数式编程的应用"><a href="#函数式编程的应用" class="headerlink" title="函数式编程的应用"></a>函数式编程的应用</h3><p>在函数式编程中，通常使用functors以及使用<strong>高阶函数</strong>抽象来创建通用功能函数，以处理任意数值或不同类型的数据。</p>
+<h4 id="高阶函数"><a href="#高阶函数" class="headerlink" title="高阶函数"></a>高阶函数</h4><blockquote>
+<p>高阶函数指的是一个函数以函数为参数，或以函数为返回值，或者既以函数为参数又以函数为返回值。  </p>
+</blockquote>
+<p>高阶函数常用于：</p>
+<ul>
+<li>部分应用于函数参数（<strong>偏函数</strong>应用）或创建一个<strong>柯里化</strong>的函数，用于复用或<strong>函数复合</strong>。</li>
+<li>接受一个函数列表并返回一些由这个列表中的函数组成的复合函数。<br>面向对象编程倾向于把方法和数据集中到对象上。那些被集中的方法通常只能用来操作包含在特定对象实例上的数据。而函数式编程倾向于复用一组通用的函数功能来处理数据。</li>
+</ul>
+<h4 id="偏函数"><a href="#偏函数" class="headerlink" title="偏函数"></a>偏函数</h4><blockquote>
+<p>通过指定部分参数来产生一个新定制函数的形式就是偏函数。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> isType = <span class="function"><span class="keyword">function</span> (<span class="params">type</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> toString.call(obj) == <span class="string">'[object'</span> + type + <span class="string">']'</span>;</div><div class="line">  &#125;;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">const</span> isString = isType(<span class="string">'string'</span>);</div><div class="line"><span class="keyword">const</span> isFunction = isType(<span class="string">'function'</span>);</div></pre></td></tr></table></figure>
+<h4 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h4><blockquote>
+<p>柯里化是将一个多参数函数转换成多个单参数函数。</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 柯里化之前</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x, y</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> x + y;</div><div class="line">&#125;</div><div class="line"></div><div class="line">add(<span class="number">1</span>, <span class="number">2</span>) <span class="comment">// 3</span></div><div class="line"></div><div class="line"><span class="comment">// 柯里化之后</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addX</span>(<span class="params">y</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> x + y;</div><div class="line">  &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line">addX(<span class="number">2</span>)(<span class="number">1</span>) <span class="comment">// 3</span></div></pre></td></tr></table></figure>
+<h4 id="函数的复合"><a href="#函数的复合" class="headerlink" title="函数的复合"></a>函数的复合</h4><blockquote>
+<p>如果一个值要经过多个函数，才能变成另外一个值，就可以把所有中间步骤合并成一个函数，这叫做”函数的复合”。</p>
+</blockquote>
+<p>一个简单的函数的复合例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> compose = <span class="function"><span class="keyword">function</span> (<span class="params">f, g</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> f(g(x));</div><div class="line">  &#125;;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>实现一个高阶函数用来减少非纯函数：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">batch</span> (<span class="params">fn</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">target, ...args</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (target.length &gt;= <span class="number">0</span>) &#123;</div><div class="line">      <span class="keyword">return</span> <span class="built_in">Array</span>.from(target).map(<span class="function"><span class="params">item</span> =&gt;</span> fn.apply(<span class="keyword">this</span>, [item, ...args]));</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">return</span> fn.apply(<span class="keyword">this</span>, [target, ...args]);</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>例如：<a href="https://github.com/iyolee/Front-End/blob/master/Code/FP/twoImpureFunc.js" target="_blank" rel="external">两个非纯函数</a> -&gt; batch(fn) -&gt; <a href="https://github.com/iyolee/Front-End/blob/master/Code/FP/oneImpureFunc.js" target="_blank" rel="external">一个非纯函数</a></p>
+<h3 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h3><p>函数式编程偏好：</p>
+<ul>
+<li>使用表达式替代语句</li>
+<li>让可变数据成为不可变的</li>
+<li>用函数复合替代命令控制流</li>
+<li>使用声明式而不是命令式代码</li>
+<li>使用纯函数而不是使用共享状态和副作用</li>
+<li>使用容器与高阶函数替代多态</li>
+<li>使用高阶函数来操作许多数据类型，创建通用、可复用功能取代只是操作集中的数据的方法</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/13/nodeAsync/" rel="next" title="理解Node.js的异步">
+                <i class="fa fa-chevron-left"></i> 理解Node.js的异步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是函数式编程-（通常简称为-FP）"><span class="nav-number">1.</span> <span class="nav-text">什么是函数式编程 （通常简称为 FP）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#理解函数式编程中核心概念"><span class="nav-number">2.</span> <span class="nav-text">理解函数式编程中核心概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#纯函数"><span class="nav-number">2.1.</span> <span class="nav-text">纯函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数复合"><span class="nav-number">2.2.</span> <span class="nav-text">函数复合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#共享状态"><span class="nav-number">2.3.</span> <span class="nav-text">共享状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不修改状态"><span class="nav-number">2.4.</span> <span class="nav-text">不修改状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#副作用"><span class="nav-number">2.5.</span> <span class="nav-text">副作用</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#声明式与命令式"><span class="nav-number">2.6.</span> <span class="nav-text">声明式与命令式</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数式编程的应用"><span class="nav-number">3.</span> <span class="nav-text">函数式编程的应用</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#高阶函数"><span class="nav-number">3.1.</span> <span class="nav-text">高阶函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#偏函数"><span class="nav-number">3.2.</span> <span class="nav-text">偏函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#柯里化"><span class="nav-number">3.3.</span> <span class="nav-text">柯里化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#函数的复合"><span class="nav-number">3.4.</span> <span class="nav-text">函数的复合</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#结论"><span class="nav-number">4.</span> <span class="nav-text">结论</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
