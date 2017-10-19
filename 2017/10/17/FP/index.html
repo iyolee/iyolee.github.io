@@ -103,7 +103,7 @@
 <meta property="og:description" content="面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://i.niupic.com/images/2017/10/16/45WWvA.png">
-<meta property="og:updated_time" content="2017-10-17T13:58:12.673Z">
+<meta property="og:updated_time" content="2017-10-19T11:41:41.631Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="函数式编程">
 <meta name="twitter:description" content="面向对象编程和面向过程编程都是编程范式，函数式编程也是一种编程范式，意味着它们都是软件构建的思维方式。与命令式或面向对象代码相比，函数式代码倾向于更简洁、更可预测以及更易于测试。">
@@ -359,9 +359,9 @@
 <ul>
 <li>相同输入总是会返回相同的输出</li>
 <li>不产生副作用</li>
-<li>不依赖于外部状态<br>JS中纯函数的例子：<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">String</span>.prototype.toUpperCase  </div><div class="line"><span class="built_in">Array</span>.prototype.map</div><div class="line"><span class="built_in">Function</span>.prototype.bind</div></pre></td></tr></table></figure>
-</li>
+<li>不依赖于外部状态  </li>
 </ul>
+<p>JS中纯函数的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">String</span>.prototype.toUpperCase  </div><div class="line"><span class="built_in">Array</span>.prototype.map</div><div class="line"><span class="built_in">Function</span>.prototype.bind</div></pre></td></tr></table></figure></p>
 <p>JS中非纯函数的例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Date</span>.now</div><div class="line"><span class="built_in">Math</span>.random</div><div class="line"><span class="built_in">Array</span>.prototype.sort</div><div class="line"><span class="built_in">document</span>.body.appendChild</div></pre></td></tr></table></figure></p>
 <p>纯函数的好处：</p>
 <ol>
@@ -398,7 +398,7 @@
 </ul>
 <p>函数式编程是一个声明式范式，意思是说程序逻辑不需要通过明确描述控制流程来表达。<br>命令式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</div><div class="line"><span class="keyword">let</span> map1 = [];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; list.length; i++) &#123;</div><div class="line">  map1.push(list[i] * <span class="number">2</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>声明式：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>];</div><div class="line"><span class="keyword">let</span> map2 = list.map(<span class="function"><span class="params">x</span> =&gt;</span> <span class="number">2</span> * x);</div></pre></td></tr></table></figure></p>
-<p>再来看声明式例子中引出的两个重要概念：<br><img src="https://i.niupic.com/images/2017/10/16/45WWvA.png" alt=""><br>在讲容器前不得不提什么是范畴：</p>
+<p>再来看声明式例子中引出的两个重要概念：<br><img src="https://i.niupic.com/images/2017/10/16/45WWvA.png" alt="图片"><br>在讲容器前不得不提什么是范畴：</p>
 <blockquote>
 <p>彼此之间存在某种关系的概念、事物、对象等等，都构成”范畴”。</p>
 </blockquote>
@@ -470,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2017/10/13/nodeAsync/" rel="next" title="理解Node.js的异步">
-                <i class="fa fa-chevron-left"></i> 理解Node.js的异步
+              <a href="/2017/10/17/es6/" rel="next" title="ECMAScript6 速览">
+                <i class="fa fa-chevron-left"></i> ECMAScript6 速览
               </a>
             
           </div>
@@ -479,6 +479,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/19/ts/" rel="prev" title="TypeScript 学习笔记">
+                TypeScript 学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -555,7 +559,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-count">11</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
