@@ -102,7 +102,7 @@
 <meta property="og:site_name" content="棕小渐的博客">
 <meta property="og:description" content="TypeScript是JavaScript的类型的超集,它可以编译成纯JavaScript。编译出来的JavaScript可以运行在任何浏览器上。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2017-10-19T11:52:53.579Z">
+<meta property="og:updated_time" content="2017-10-25T05:39:20.137Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="TypeScript 学习笔记">
 <meta name="twitter:description" content="TypeScript是JavaScript的类型的超集,它可以编译成纯JavaScript。编译出来的JavaScript可以运行在任何浏览器上。">
@@ -355,9 +355,9 @@
 <li>字符串</li>
 <li>null</li>
 <li>undefined</li>
-<li>Symbol<br>注意：在TypeScript中,boolean, number, string, Symbol是JavaScript中的基本类型,而Boolean, Number, String是JavaScript中的构造函数。<figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 编译通过</span></div><div class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span>;</div><div class="line"></div><div class="line"><span class="comment">// 编译报错</span></div><div class="line"><span class="keyword">let</span> createdByNewBoolean: <span class="built_in">boolean</span> = <span class="keyword">new</span>	<span class="built_in">Boolean</span>(<span class="number">1</span>);</div></pre></td></tr></table></figure>
-</li>
+<li>Symbol  </li>
 </ul>
+<p>注意：在TypeScript中,boolean, number, string, Symbol是JavaScript中的基本类型,而Boolean, Number, String是JavaScript中的构造函数。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 编译通过</span></div><div class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span>;</div><div class="line"></div><div class="line"><span class="comment">// 编译报错</span></div><div class="line"><span class="keyword">let</span> createdByNewBoolean: <span class="built_in">boolean</span> = <span class="keyword">new</span>	<span class="built_in">Boolean</span>(<span class="number">1</span>);</div></pre></td></tr></table></figure></p>
 <p>void, undefined, null:</p>
 <ul>
 <li>JavaScript没有空值(Void)的概念,在TypeScirpt中,可以用     void表示没有任何返回值的函数，或者将它赋值为undefined和null</li>
@@ -469,6 +469,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/2017/10/24/exports/" rel="prev" title="module.exports与exports">
+                module.exports与exports <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -544,7 +548,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-count">13</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -557,7 +561,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">6</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>

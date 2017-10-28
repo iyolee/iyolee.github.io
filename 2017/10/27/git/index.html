@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="泛前端," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="关于版本控制（VSC） 版本控制是一套系统，该系统按时间顺序记录某一个或一系列文件的变更，让你可以查看其以前的特定版本。">
+<meta name="keywords" content="泛前端">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Git学习笔记">
+<meta property="og:url" content="http://leeper.online/myblog/2017/10/27/git/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="关于版本控制（VSC） 版本控制是一套系统，该系统按时间顺序记录某一个或一系列文件的变更，让你可以查看其以前的特定版本。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-10-28T14:57:12.376Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Git学习笔记">
+<meta name="twitter:description" content="关于版本控制（VSC） 版本控制是一套系统，该系统按时间顺序记录某一个或一系列文件的变更，让你可以查看其以前的特定版本。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/10/27/git/"/>
+
+
+
+
+
+  <title>Git学习笔记 | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/27/git/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Git学习笔记</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-27T10:09:24+08:00">
+                2017-10-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="关于版本控制（VSC）"><a href="#关于版本控制（VSC）" class="headerlink" title="关于版本控制（VSC）"></a>关于版本控制（VSC）</h3><blockquote>
+<p>版本控制是一套系统，该系统按时间顺序记录某一个或一系列文件的变更，让你可以查看其以前的特定版本。</p>
+</blockquote>
+<a id="more"></a>
+<ul>
+<li>本地版本控制系统：使用简单的数据库来保存文件的所有变更</li>
+<li>集中式版本控制系统：包含文件所有修订版本的单一服务器，多个客户端都可以从这个中心位置检出文件</li>
+<li>分布式版本控制系统：客户端并非仅仅是检出文件的最新快照，而是对代码仓库进行完整的镜像<br>Git就是分布式版本控制系统之一。</li>
+</ul>
+<h3 id="Git特点"><a href="#Git特点" class="headerlink" title="Git特点"></a>Git特点</h3><ul>
+<li>快照，而非差异<br>每次提交或在Git中保存项目的状态时，Git会抓取一张所有文件当前状态的快照，然后存储一个指向该快照的引用。</li>
+<li>操作基本都在本地执行<br>Git中大部分操作只需用到本地文件和资源，一般无需从网络中的其他计算机中获取信息。</li>
+</ul>
+<h3 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h3><h4 id="Git三种状态"><a href="#Git三种状态" class="headerlink" title="Git三种状态"></a>Git三种状态</h4><ul>
+<li>已提交：表示数据存入本地数据库中</li>
+<li>已修改：表示已经改动了文件，但尚未提交到数据库</li>
+<li>已暂存：表示对已经修改文件的当前版本做出了标识并将其加入下一次要提交的快照中<h4 id="Git项目中主要区域"><a href="#Git项目中主要区域" class="headerlink" title="Git项目中主要区域"></a>Git项目中主要区域</h4></li>
+<li>Git目录：Git保存项目元数据和对象数据库的地方</li>
+<li>工作目录：从Git目录下的压缩数据库内被提取出，放置在磁盘上以供使用需改</li>
+<li>暂存区：保存了下一次所要提交内容相关信息的文件<h4 id="Git的基本工作流程"><a href="#Git的基本工作流程" class="headerlink" title="Git的基本工作流程"></a>Git的基本工作流程</h4></li>
+</ul>
+<ol>
+<li>修改工作目录中的文件</li>
+<li>将这些文件的快照加入暂存区</li>
+<li>提交暂存区中的文件，将快照永久地保存在Git目录中</li>
+</ol>
+<h3 id="Git命令"><a href="#Git命令" class="headerlink" title="Git命令"></a>Git命令</h3><h4 id="Git首次配置"><a href="#Git首次配置" class="headerlink" title="Git首次配置"></a>Git首次配置</h4><ul>
+<li><p>设置用户名和电子邮件地址：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git config --global user.name &quot;leeper&quot;  </div><div class="line">git config --global user.email &quot;leeper@example.com&quot;</div></pre></td></tr></table></figure>
+</li>
+<li><p>检查个人设置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git config --list</div></pre></td></tr></table></figure>
+</li>
+<li><p>获取帮助：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git help &lt;verb&gt;</div><div class="line">git &lt;verb&gt; --help</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="获取Git仓库"><a href="#获取Git仓库" class="headerlink" title="获取Git仓库"></a>获取Git仓库</h4><ul>
+<li><p>现有目录中初始化Git仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init</div></pre></td></tr></table></figure>
+</li>
+<li><p>克隆现有仓库：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://github.com/iyolee/Front-End</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="Git基础常用命令"><a href="#Git基础常用命令" class="headerlink" title="Git基础常用命令"></a>Git基础常用命令</h4><ul>
+<li>查看当前文件状态：git status（-s 显示简洁状态信息）</li>
+<li>添加内容到下一次提交中：git add (files)</li>
+<li>查看已暂存和未暂存的变更：git diff</li>
+<li>添加到暂存区：git commit -m “description”</li>
+<li>重新尝试提交：git commit –amend</li>
+<li>从暂存区中移除：git rm (files)</li>
+<li>查看提交历史：git log</li>
+<li>移出暂存区：git reset (files)</li>
+<li>撤销对文件的修改：git checkout – (file)  <h5 id="远程仓库常用命令"><a href="#远程仓库常用命令" class="headerlink" title="远程仓库常用命令"></a>远程仓库常用命令</h5></li>
+<li>显示远程仓库：git remote (-v 显示仓库对应URL)</li>
+<li>添加远程仓库：git remote add pb <a href="https://github.com/iyolee/Front-End" target="_blank" rel="external">https://github.com/iyolee/Front-End</a></li>
+<li>从远程仓库获取和拉取数据：git fetch [remote-name]</li>
+<li>将数据推送到远程仓库：git push [remote-name] [branch-name]</li>
+<li>检查远程仓库：git remote show [remote-name]</li>
+<li>删除远程仓库：git remote rm [remote-name]</li>
+<li>重命名远程仓库：git remote rename [remote-name] [new-remote-name]</li>
+</ul>
+<h3 id="Git分支机制"><a href="#Git分支机制" class="headerlink" title="Git分支机制"></a>Git分支机制</h3><p>Git的分支是一个指向某次提交的轻量级的可移动指针。Git默认的分支是master。当你发起提交时，就有了一个指向最后一次提交的master分支。每次提交时，它都会自动向前移动。  </p>
+<h4 id="创建新分支"><a href="#创建新分支" class="headerlink" title="创建新分支"></a>创建新分支</h4><p>创建一个名为pb的新分支：<br><figure class="highlight plain"><figcaption><span>branch pb```</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">该命令只会创建新分支，不会切换到新的分支上去。</div><div class="line">#### 切换分支</div><div class="line">切换到已有的分支pb：  </div><div class="line">```git checkout pb</div></pre></td></tr></table></figure></p>
+<h4 id="基本的分支操作"><a href="#基本的分支操作" class="headerlink" title="基本的分支操作"></a>基本的分支操作</h4><ul>
+<li>列出当前所有的分支：git branch</li>
+<li>创建新分支并切换到新分支上：git checkout -b [branch-name]</li>
+<li>删除分支：git branch -d [branch-name]</li>
+<li>合并分支：git merge [branch-name]</li>
+<li>推送分支：git push [remote-name] [branch-name]</li>
+<li>拉取数据并与本地分支进行合并：git pull</li>
+<li>删除远程分支：git push origin –delete [branch-name]</li>
+</ul>
+<h3 id="变基"><a href="#变基" class="headerlink" title="变基"></a>变基</h3><p>在Git中，要把更改从一个分支整合到另一个分支，除了合并（merge）外，还可以变基（rebase）。</p>
+<h4 id="变基的工作原理"><a href="#变基的工作原理" class="headerlink" title="变基的工作原理"></a>变基的工作原理</h4><p>首先找到两个要整合的分支（当前所在的分支和要整合到的分支）的共同祖先，然后取得当前所在的分支的每次提交引入的更改，并把这些更改保存为临时文件，之后将当前分支重置为要整合到的分支，最后在该分支上依次引入之前保存的每个更改。</p>
+<h4 id="变基的使用"><a href="#变基的使用" class="headerlink" title="变基的使用"></a>变基的使用</h4><p>假设需要把pb分支整合进来，可以通过<figure class="highlight plain"><figcaption><span>rebase [basebranch] [topicbranch]```命令，直接对该分支执行变基操作，而不需要先切换到该分支：</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">```</div><div class="line">git rebase master pb</div></pre></td></tr></table></figure></p>
+<p>对本地尚未推送的更改进行变基操作，从而简化提交历史，但不能对任何已经推送到服务器的更改进行变基操作。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/泛前端/" rel="tag"># 泛前端</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/24/exports/" rel="next" title="module.exports与exports">
+                <i class="fa fa-chevron-left"></i> module.exports与exports
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/10/28/OOP/" rel="prev" title="JavaScript的面向对象">
+                JavaScript的面向对象 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#关于版本控制（VSC）"><span class="nav-number">1.</span> <span class="nav-text">关于版本控制（VSC）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git特点"><span class="nav-number">2.</span> <span class="nav-text">Git特点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git基础"><span class="nav-number">3.</span> <span class="nav-text">Git基础</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git三种状态"><span class="nav-number">3.1.</span> <span class="nav-text">Git三种状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git项目中主要区域"><span class="nav-number">3.2.</span> <span class="nav-text">Git项目中主要区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git的基本工作流程"><span class="nav-number">3.3.</span> <span class="nav-text">Git的基本工作流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git命令"><span class="nav-number">4.</span> <span class="nav-text">Git命令</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Git首次配置"><span class="nav-number">4.1.</span> <span class="nav-text">Git首次配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#获取Git仓库"><span class="nav-number">4.2.</span> <span class="nav-text">获取Git仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git基础常用命令"><span class="nav-number">4.3.</span> <span class="nav-text">Git基础常用命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#远程仓库常用命令"><span class="nav-number">4.3.1.</span> <span class="nav-text">远程仓库常用命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Git分支机制"><span class="nav-number">5.</span> <span class="nav-text">Git分支机制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建新分支"><span class="nav-number">5.1.</span> <span class="nav-text">创建新分支</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基本的分支操作"><span class="nav-number">5.2.</span> <span class="nav-text">基本的分支操作</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#变基"><span class="nav-number">6.</span> <span class="nav-text">变基</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#变基的工作原理"><span class="nav-number">6.1.</span> <span class="nav-text">变基的工作原理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#变基的使用"><span class="nav-number">6.2.</span> <span class="nav-text">变基的使用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
