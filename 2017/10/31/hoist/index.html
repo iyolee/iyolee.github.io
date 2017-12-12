@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript代码在执行时并不完全是由上到下一行一行执行的，由此产生了一个提升的问题。">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浅析JavaScript中的提升">
+<meta property="og:url" content="http://leeper.online/myblog/2017/10/31/hoist/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="JavaScript代码在执行时并不完全是由上到下一行一行执行的，由此产生了一个提升的问题。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2017-12-12T08:42:57.634Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浅析JavaScript中的提升">
+<meta name="twitter:description" content="JavaScript代码在执行时并不完全是由上到下一行一行执行的，由此产生了一个提升的问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/10/31/hoist/"/>
+
+
+
+
+
+  <title>浅析JavaScript中的提升 | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/10/31/hoist/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">浅析JavaScript中的提升</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-31T20:57:38+08:00">
+                2017-10-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript代码在执行时并不完全是由上到下一行一行执行的，由此产生了一个提升的问题。</p>
+<a id="more"></a>
+<h3 id="什么是提升"><a href="#什么是提升" class="headerlink" title="什么是提升"></a>什么是提升</h3><p>可以简单理解为：声明(变量和函数)都会被“移动”到各自作用域的最顶端,这个过程被称为提升。</p>
+<h3 id="具体例子看提升"><a href="#具体例子看提升" class="headerlink" title="具体例子看提升"></a>具体例子看提升</h3><p>下面两个例子a会log什么出来呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">a = <span class="number">233</span>;</div><div class="line"><span class="keyword">var</span> a;</div><div class="line"><span class="built_in">console</span>.log(a)</div></pre></td></tr></table></figure></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line"><span class="keyword">var</span> a = <span class="number">233</span>;</div></pre></td></tr></table></figure>
+<p>“看起来”第一个例子应该log出undefined，第二个例子变量a在使用前没有先进行声明,因此会抛出ReferenceError异常。但实际上，第一个例子a输出233，第二个例子a输出undefined。  </p>
+<p>为什么？  </p>
+<p>在知道为什么之前有必要了解：JavaScript虽然是解释型语言，但在解释JavaScript代码之前首先对其进行编译的。编译阶段中的一部分工作就是找到所有的声明,并用合适的作用域将它们关联起来。</p>
+<p>变量和函数在内的所有声明都会在任何代码被执行前首先被处理。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = <span class="number">233</span>;</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line"><span class="string">上面的声明看起来是一个声明，而对于JavaScript而言实际上这是两个声明：var a;和a = 233;。第一个定义声明是在编译阶段进行的。第二个赋值声明会被留在原地等待执行阶段。  </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">看回前面两个例子，第一个例子的代码会被这样处理：</span></div><div class="line"><span class="string">`</span><span class="string">``</span> JavaScript</div><div class="line"><span class="keyword">var</span> a;</div><div class="line">a = <span class="number">233</span>;</div><div class="line"><span class="built_in">console</span>.log(a);</div></pre></td></tr></table></figure></p>
+<p>第二个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a;</div><div class="line"><span class="built_in">console</span>.log(a);</div><div class="line">a = <span class="number">233</span>;</div><div class="line"><span class="string">``</span><span class="string">`  </span></div><div class="line"><span class="string">注意：**只有声明本身会被提升,而赋值或其他运行逻辑会留在原地 。**  </span></div><div class="line"><span class="string"></span></div><div class="line"><span class="string">### 函数声明与函数表达式</span></div><div class="line"><span class="string">第一个例子：  </span></div><div class="line"><span class="string">`</span><span class="string">``</span> JavaScript</div><div class="line">foo();</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(a); <span class="comment">// undefined</span></div><div class="line">  <span class="keyword">var</span> a = <span class="number">233</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>函数foo可以正常执行。<br>第二个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">foo(); <span class="comment">// TypeError</span></div><div class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>报错：Uncaught TypeError: foo is not a function  </p>
+<p>由此可以看到：<strong>函数声明会被提升,但是函数表达式却不会被提升。</strong><br>第三个例子：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">foo(); <span class="comment">// TypeError</span></div><div class="line">bar(); <span class="comment">// ReferenceError</span></div><div class="line"><span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span> <span class="title">bar</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>这段代码经过提升后,可以理解为以下形式:<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> foo;</div><div class="line">foo(); <span class="comment">// TypeError</span></div><div class="line">bar(); <span class="comment">// ReferenceError</span></div><div class="line">foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> bar = ...self...</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<p>由此可见：<strong>具名的函数表达式,名称标识符在赋值之前也无法在所在作用域中使用。</strong>  </p>
+<h3 id="函数优先"><a href="#函数优先" class="headerlink" title="函数优先"></a>函数优先</h3><p>既然函数声明和变量声明都会被提升，那么问题来了，重复声明的代码中的优先级是怎样的，是函数声明被提升还是变量声明被提升？<br>继续验证：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">foo(); <span class="comment">// 1</span></div><div class="line"><span class="keyword">var</span> foo;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log( <span class="number">1</span> );</div><div class="line">&#125;</div><div class="line">foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log( <span class="number">2</span> );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>var foo尽管出现在 function foo()…的声明之前，但它是重复的声明而被忽略，因为<strong>函数声明会被提升到普通变量之前</strong>。可以得知：函数声明提升的优先权大于普通变量声明。  </p>
+<p>尽管重复的var声明会被忽略掉,但<strong>出现在后面的函数声明还是可以覆盖前面的</strong>：</p>
+<pre><code class="JavaScript">foo(); <span class="comment">// 3</span>
+<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log( <span class="number">1</span> );
+}
+<span class="keyword">var</span> foo = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log( <span class="number">2</span> );
+};
+<span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params"></span>) </span>{
+  <span class="built_in">console</span>.log( <span class="number">3</span> );
+}
+</code></pre>
+<h3 id="ES6中的变量声明"><a href="#ES6中的变量声明" class="headerlink" title="ES6中的变量声明"></a>ES6中的变量声明</h3><p>ES6新增了let、const声明，它们会存在一个暂时性死区（TDZ），表现出的情况会有所不同，具体可以参考：<a href="https://github.com/iyolee/Front-End/blob/master/JS/es6.md" target="_blank" rel="external">let, const</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ul>
+<li>var变量声明和函数声明存在提升</li>
+<li>函数表达式不会被提升</li>
+<li>函数声明提升的优先权大于普通变量声明</li>
+<li>let, const由于存在暂时性死区，表现出的情况和var声明有所不同</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/28/OOP/" rel="next" title="JavaScript的面向对象">
+                <i class="fa fa-chevron-left"></i> JavaScript的面向对象
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/11/20/for/" rel="prev" title="重新理解for循环">
+                重新理解for循环 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是提升"><span class="nav-number">1.</span> <span class="nav-text">什么是提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#具体例子看提升"><span class="nav-number">2.</span> <span class="nav-text">具体例子看提升</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#函数优先"><span class="nav-number">3.</span> <span class="nav-text">函数优先</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ES6中的变量声明"><span class="nav-number">4.</span> <span class="nav-text">ES6中的变量声明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
