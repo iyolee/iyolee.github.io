@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTTP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。">
+<meta name="keywords" content="HTTP">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HTTP缓存学习笔记">
+<meta property="og:url" content="http://leeper.online/myblog/2017/03/07/httpcache/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-18T05:18:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HTTP缓存学习笔记">
+<meta name="twitter:description" content="缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/03/07/httpcache/"/>
+
+
+
+
+
+  <title>HTTP缓存学习笔记 | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/03/07/httpcache/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">HTTP缓存学习笔记</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-07T22:20:54+08:00">
+                2017-03-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>缓存是一种保存资源副本并在下次请求时直接使用该副本的技术。当 web 缓存发现请求的资源已经被存储，它会拦截请求，返回该资源的拷贝，而不会去源服务器重新下载。</p>
+<a id="more"></a>
+<h3 id="缓存的优点"><a href="#缓存的优点" class="headerlink" title="缓存的优点"></a>缓存的优点</h3><ul>
+<li>缓存减少了冗余的数据传输</li>
+<li>缓存缓解了网络瓶颈的问题</li>
+<li>缓存降低了对原始服务器的要求</li>
+<li>缓存降低了短距离的时延</li>
+</ul>
+<h3 id="缓存的分类"><a href="#缓存的分类" class="headerlink" title="缓存的分类"></a>缓存的分类</h3><p>缓存的种类大致可归为两类：</p>
+<ul>
+<li>私有缓存：私有缓存只能用于单独用户。这些缓存为浏览过的文档提供向后/向前导航，保存网页，查看源码等功能，可以避免再次向服务器发起多余的请求。</li>
+<li>共享缓存：是特殊的共享代理服务器，可以被多个用户使用。</li>
+</ul>
+<h3 id="缓存的处理步骤"><a href="#缓存的处理步骤" class="headerlink" title="缓存的处理步骤"></a>缓存的处理步骤</h3><p>对于一条HTTP GET报文的基本缓存处理过程：</p>
+<ol>
+<li>接收：缓存从网络中读取抵达的请求报文</li>
+<li>解析：缓存对报文进行解析，提取出URL和各种首部</li>
+<li>查询：缓存查看是否有本地副本可用，如果没有，就获取一份副本，并将其保存在本地</li>
+<li>新鲜度检测：缓存查看已缓存副本是否足够新鲜，如果不是，就询问服务器是否有任何更新</li>
+<li>创建响应：缓存会用新的首部和已缓存的主体来构建一条响应报文</li>
+<li>发送：缓存通过网络将响应发回给客户端</li>
+<li>日志：缓存可选地创建一个日志文件条目来描述这个事务</li>
+</ol>
+<h3 id="缓存控制"><a href="#缓存控制" class="headerlink" title="缓存控制"></a>缓存控制</h3><p>HTTP/1.1定义的 <code>Cache-Control</code>头用来区分对缓存机制的支持情况， 请求头和响应头都支持这个属性。</p>
+<ul>
+<li>no-store：标识为<code>no-store</code>的响应会禁止缓存对响应进行复制。</li>
+<li>no-cache：标识为<code>no-cache</code>的响应实际上可以存储在本地缓存区中的。只是在与原始服务器进行新鲜度再验证之前，缓存不能将其提供给客户端使用。</li>
+<li>must-revalidate：<code>must-revalidate</code>响应首部告诉缓存，在事先没有跟原始服务器进行再验证的情况下，不能提供这个对象的陈旧副本。缓存任然可以随意提供新鲜的副本。<br>####　1. 禁止进行缓存<br>缓存中不得存储任何关于客户端请求和服务端响应的内容。每次由客户端发起的请求都会下载完整的响应内容。<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Cache-Control: no-store</div><div class="line">Cache-Control: no-cache, no-store, must-revalidate</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h4 id="2-强制确认缓存"><a href="#2-强制确认缓存" class="headerlink" title="2. 强制确认缓存"></a>2. 强制确认缓存</h4><p>每次有请求发出时，服务器端会验证请求中所描述的缓存是否过期，若未过期（返回304），则缓存才使用本地缓存副本。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cache-Control: no-cache</div></pre></td></tr></table></figure></p>
+<h4 id="3-缓存过期机制"><a href="#3-缓存过期机制" class="headerlink" title="3. 缓存过期机制"></a>3. 缓存过期机制</h4><p>max-age是距离请求发起的时间的秒数。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Cache-Control: max-age=31536000</div></pre></td></tr></table></figure></p>
+<h3 id="新鲜度"><a href="#新鲜度" class="headerlink" title="新鲜度"></a>新鲜度</h3><p>一个陈旧的资源（缓存副本）是不会直接被清除或忽略的，请求服务器只有在文档与缓存中现有的副本不同时，才回送对象主体。</p>
+<ul>
+<li><p>If-None-Match：当客户端发起一个请求时，缓存检索到已有一个对应的陈旧资源（缓存副本），则缓存会先将此请求附加一个<code>If-None-Match</code>头，然后发给目标服务器，以此来检查该资源副本是否是依然还是算新鲜的，若服务器返回了 <code>304</code>则表示此资源副本是新鲜的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ETag: &quot;v2.6&quot;</div><div class="line">If-None-Match: &quot;v2.6&quot;</div></pre></td></tr></table></figure>
+</li>
+<li><p>If-Modified-Since：If-Modified-Since再验证请求通常被称为IMS请求，只有自某个日期之后资源发生了变化的时候，IMS请求才会指示服务器执行请求。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Modified-Since: &lt;cached last-modified date&gt;</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="其他相关设置"><a href="#其他相关设置" class="headerlink" title="其他相关设置"></a>其他相关设置</h3><h4 id="1-Last-Modified"><a href="#1-Last-Modified" class="headerlink" title="1. Last-Modified"></a>1. Last-Modified</h4><p>服务器将资源传递给客户端时，会将资源最后更改的时间以“Last-Modified: GMT”的形式加在实体首部上一起返回给客户端。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Last-Modified: Fri, 23 Jul 2017 01:47:00 GMT</div></pre></td></tr></table></figure></p>
+<p>这个时候客户端在请求资源的时候需要发送一个字段来标记时间，服务器端会根据这个时间与服务器上该资源的最终修改时间对比，若一致，则说明该资源没有被修改过。<br>客户端发送的这个字段一般有两种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Modified-Since: Last-Modified-value</div></pre></td></tr></table></figure></p>
+<p>该字段告诉服务器如果客户端传来的最后修改时间和服务器上的一致，直接返回 304 状态码即可，当前各大浏览器均是使用该字段来向服务器传递保存的 Last-Modified 的值。如果时间不一致的话，服务器会返回所有的这个资源并返回 200 状态码。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Unmodified-Since: Last-Modified-value</div></pre></td></tr></table></figure></p>
+<p>该字段告诉服务器如果客户端传来的最后修改时间和服务器上的不一致，则直接返回 412 状态码(Precondition Failed)。</p>
+<h4 id="2-ETag"><a href="#2-ETag" class="headerlink" title="2. ETag"></a>2. ETag</h4><p><code>Last-Modified</code> 响应头可以作为一种弱校验器。说它弱是因为它只能精确到一秒。而<code>ETag</code>作为缓存的一种强校验器，如果资源请求的响应头里含有<code>ETag</code>, 客户端可以在后续的请求的头中带上 <code>If-None-Match</code>头来验证缓存。<br>客户端发送的这个字段一般有两种：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-None-Match: ETag-value</div></pre></td></tr></table></figure></p>
+<p>告诉服务端如果 ETag 没匹配上需要重发资源数据，否则直接回送304 和响应报头即可。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If-Match: ETag-value</div></pre></td></tr></table></figure></p>
+<p>该字段告诉服务器如果客户端传来的 Etag 值跟服务器上的不一致，则直接返回 412 状态码(Precondition Failed)。</p>
+<h4 id="3-Pragma"><a href="#3-Pragma" class="headerlink" title="3. Pragma"></a>3. Pragma</h4><p>是HTTP/1.0标准中定义的一个header属性，请求中包含<code>Pragma</code>的效果跟在头信息中定义<code>Cache-Control: no-cache</code>相同，但是HTTP的响应头不支持这个属性，所以它不能拿来完全替代HTTP/1.1中定义的<code>Cache-control</code>头。通常定义<code>Pragma</code>以向后兼容基于HTTP/1.0的客户端。</p>
+<h4 id="4-Expires"><a href="#4-Expires" class="headerlink" title="4. Expires"></a>4. Expires</h4><p><code>Expires</code> 可以用来设置缓存的时间，它的值是一个格林尼治时间，比如Mon, 20 Jul 2017 10:08:35 GMT 来告诉浏览器资源缓存过期时间，如果还没过该时间点则不发请求。</p>
+<h4 id="5-Vary"><a href="#5-Vary" class="headerlink" title="5. Vary"></a>5. Vary</h4><p><code>Vary</code> HTTP 响应头决定了对于后续的请求头。当缓存服务器收到一个请求，只有当前的请求和原始（缓存）的请求头跟缓存的响应头里的<code>Vary</code>都匹配，才能使用缓存的响应。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Vary: User-Agent</div></pre></td></tr></table></figure></p>
+<h4 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h4><ul>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Caching_FAQ" target="_blank" rel="external">HTTP 缓存</a></li>
+<li><a href="http://www.cnblogs.com/vajoy/p/5341664.html" target="_blank" rel="external">浅谈浏览器http的缓存机制</a></li>
+<li><a href="http://imweb.io/topic/5795dcb6fb312541492eda8c" target="_blank" rel="external">HTTP缓存控制小结</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/HTTP/" rel="tag"># HTTP</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/12/react16/" rel="prev" title="React v16.x">
+                React v16.x <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的优点"><span class="nav-number">1.</span> <span class="nav-text">缓存的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的分类"><span class="nav-number">2.</span> <span class="nav-text">缓存的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存的处理步骤"><span class="nav-number">3.</span> <span class="nav-text">缓存的处理步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#缓存控制"><span class="nav-number">4.</span> <span class="nav-text">缓存控制</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-强制确认缓存"><span class="nav-number">4.1.</span> <span class="nav-text">2. 强制确认缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-缓存过期机制"><span class="nav-number">4.2.</span> <span class="nav-text">3. 缓存过期机制</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#新鲜度"><span class="nav-number">5.</span> <span class="nav-text">新鲜度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#其他相关设置"><span class="nav-number">6.</span> <span class="nav-text">其他相关设置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-Last-Modified"><span class="nav-number">6.1.</span> <span class="nav-text">1. Last-Modified</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-ETag"><span class="nav-number">6.2.</span> <span class="nav-text">2. ETag</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-Pragma"><span class="nav-number">6.3.</span> <span class="nav-text">3. Pragma</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-Expires"><span class="nav-number">6.4.</span> <span class="nav-text">4. Expires</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-Vary"><span class="nav-number">6.5.</span> <span class="nav-text">5. Vary</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#参考"><span class="nav-number">6.6.</span> <span class="nav-text">参考</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

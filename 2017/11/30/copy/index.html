@@ -104,7 +104,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://i.niupic.com/images/2017/11/26/Oeguvl.png">
 <meta property="og:image" content="http://i.niupic.com/images/2017/11/26/bteOkq.png">
-<meta property="og:updated_time" content="2017-12-12T08:53:19.692Z">
+<meta property="og:updated_time" content="2018-03-18T05:03:29.824Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript深浅拷贝">
 <meta name="twitter:description" content="从原理出发去理解JavaScript中的深浅拷贝。">
@@ -394,25 +394,16 @@
 <p><img src="http://i.niupic.com/images/2017/11/26/bteOkq.png" alt="deep copy"></p>
 <p>综上，<strong>JSON.parse()和JSON.stringify()是完全的深拷贝</strong>。</p>
 <ul>
-<li>动手实现深拷贝<br>利用递归来实现对对象或数组的深拷贝。递归思路：对属性中所有引用类型的值进行遍历，直到是基本类型值为止。<br>``` javascript<br>/*<ul>
-<li>@Author: leeper </li>
-<li>@Date: 2017-11-26 15:28:01 </li>
-<li>@function deepCopy 实现深拷贝</li>
-<li>@params obj Array or Obeject</li>
-<li>@return targetObj new obj<br>*/</li>
-</ul>
+<li><p>动手实现深拷贝<br>利用递归来实现对对象或数组的深拷贝。递归思路：对属性中所有引用类型的值进行遍历，直到是基本类型值为止。<br>``` javascript<br>function deepCopy(obj) {<br>if (!obj &amp;&amp; typeof obj !== ‘object’) {<br>  throw new Error(‘error arguments’);<br>}<br>// const targetObj = obj.constructor === Array ? [] : {};<br>const targetObj = Array.isArray(obj) ? [] : {};<br>for (let key in obj) {</p>
+<p>  //只对对象自有属性进行拷贝<br>  if (obj.hasOwnProperty(key)) {</p>
+<pre><code>if (obj[key] &amp;&amp; typeof obj[key] === &apos;object&apos;) {
+  targetObj[key] = deepCopy(obj[key]);
+} else {
+  targetObj[key] = obj[key];
+}
+</code></pre><p>  }<br>}<br>return targetObj;<br>}</p>
 </li>
 </ul>
-<p>function deepCopy(obj) {<br>  if (!obj &amp;&amp; typeof obj !== ‘object’) {<br>    throw new Error(‘error arguments’);<br>  }<br>  // const targetObj = obj.constructor === Array ? [] : {};<br>  const targetObj = Array.isArray(obj) ? [] : {};<br>  for (let key in obj) {</p>
-<pre><code>//只对对象自有属性进行拷贝
-if (obj.hasOwnProperty(key)) {
-  if (obj[key] &amp;&amp; typeof obj[key] === &apos;object&apos;) {
-    targetObj[key] = deepCopy(obj[key]);
-  } else {
-    targetObj[key] = obj[key];
-  }
-}
-</code></pre><p>  }<br>  return targetObj;<br>}</p>
 
       
     </div>
@@ -452,6 +443,10 @@ if (obj.hasOwnProperty(key)) {
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/27/vim/" rel="prev" title="Vim编辑器使用">
+                Vim编辑器使用 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -528,7 +523,7 @@ if (obj.hasOwnProperty(key)) {
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -541,7 +536,7 @@ if (obj.hasOwnProperty(key)) {
             
             <div class="site-state-item site-state-tags">
               <a href="/tags/index.html">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">10</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -599,7 +594,7 @@ if (obj.hasOwnProperty(key)) {
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-"></i>
   </span>

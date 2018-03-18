@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+<link rel="shortcut icon" href="/favicon.png" />
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="React," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="React v16.x的发布，新版本变更包含了一些存在已久的特性，包括碎片（fragments），错误边界，portals，支持自定义 DOM 属性，提升服务端渲染以及减小库的大小等。">
+<meta name="keywords" content="React">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React v16.x">
+<meta property="og:url" content="http://leeper.online/myblog/2017/03/12/react16/index.html">
+<meta property="og:site_name" content="棕小渐的博客">
+<meta property="og:description" content="React v16.x的发布，新版本变更包含了一些存在已久的特性，包括碎片（fragments），错误边界，portals，支持自定义 DOM 属性，提升服务端渲染以及减小库的大小等。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-03-18T05:10:46.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React v16.x">
+<meta name="twitter:description" content="React v16.x的发布，新版本变更包含了一些存在已久的特性，包括碎片（fragments），错误边界，portals，支持自定义 DOM 属性，提升服务端渲染以及减小库的大小等。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"always","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":5},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://leeper.online/myblog/2017/03/12/react16/"/>
+
+
+
+
+
+  <title>React v16.x | 棕小渐的博客</title>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">棕小渐的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://leeper.online/myblog/2017/03/12/react16/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="leeper">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="棕小渐的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">React v16.x</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-12T22:20:54+08:00">
+                2017-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>React v16.x的发布，新版本变更包含了一些存在已久的特性，包括碎片（fragments），错误边界，portals，支持自定义 DOM 属性，提升服务端渲染以及减小库的大小等。</p>
+<a id="more"></a> 
+<h2 id="React-v16：新核心架构"><a href="#React-v16：新核心架构" class="headerlink" title="React v16：新核心架构"></a>React v16：新核心架构</h2><p>React 16 从顶层采用全新的核心架构，代号“Fiber”。Fiber负责大部分React 16里的新特性，例如错误边界和 fragments。更令人激动的莫过于，通过异步渲染，应用能够更好的响应，React避免阻塞了主线程。<br>想要了解更多关于新核心架构，参考：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/26027085" target="_blank" rel="external">React Fiber是什么</a></li>
+</ul>
+<h2 id="React-v16-2-0：Fragments"><a href="#React-v16-2-0：Fragments" class="headerlink" title="React v16.2.0：Fragments"></a>React v16.2.0：Fragments</h2><h3 id="为什么使用-Fragments？"><a href="#为什么使用-Fragments？" class="headerlink" title="为什么使用 Fragments？"></a>为什么使用 Fragments？</h3><p>若要将以下代码作为组件的 children 使用的。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Some text.</div><div class="line">&lt;h2&gt;A heading&lt;<span class="regexp">/h2&gt;</span></div><div class="line"><span class="regexp">More text.</span></div><div class="line"><span class="regexp">&lt;h2&gt;Another heading&lt;/</span>h2&gt;</div><div class="line">Even more text.</div></pre></td></tr></table></figure></p>
+<p>在React v16之前的版本中，需要把以上代码外面包裹一个标签中：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;div&gt;</div><div class="line">      Some text.</div><div class="line">      &lt;h2&gt;A heading&lt;<span class="regexp">/h2&gt;</span></div><div class="line"><span class="regexp">      More text.</span></div><div class="line"><span class="regexp">      &lt;h2&gt;Another heading&lt;/</span>h2&gt;</div><div class="line">      Even more text.</div><div class="line">    &lt;<span class="regexp">/div&gt;</span></div><div class="line"><span class="regexp">  )</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure></p>
+<p>在React v16中，可以在组件中渲染数组：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line"> <span class="keyword">return</span> [</div><div class="line">  <span class="string">"Some text."</span>,</div><div class="line">  &lt;h2 key=<span class="string">"heading-1"</span>&gt;A heading&lt;<span class="regexp">/h2&gt;,</span></div><div class="line"><span class="regexp">  "More text.",</span></div><div class="line"><span class="regexp">  &lt;h2 key="heading-2"&gt;Another heading&lt;/</span>h2&gt;,</div><div class="line">  <span class="string">"Even more text."</span></div><div class="line"> ];</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>该写法需要注意：</p>
+<ol>
+<li>每个子元素需要使用逗号分隔</li>
+<li>数组的每一项必须要有 key 值，否则会产生警告</li>
+<li>字符串必须使用引号</li>
+</ol>
+<p>而在最新的React版本中，引入了 Fragment 组件：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;Fragment&gt;</div><div class="line">      Some text.</div><div class="line">      &lt;h2&gt;A heading&lt;<span class="regexp">/h2&gt;</span></div><div class="line"><span class="regexp">      More text.</span></div><div class="line"><span class="regexp">      &lt;h2&gt;Another heading&lt;/</span>h2&gt;</div><div class="line">      Even more text.</div><div class="line">    &lt;<span class="regexp">/Fragment&gt;</span></div><div class="line"><span class="regexp">  );</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure></p>
+<p>Fragment 是 React 对象的属性，也可以这么写：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> Fragment = React.Fragment;</div><div class="line">&lt;Fragment&gt;</div><div class="line">  &lt;ChildA /&gt;</div><div class="line">  &lt;ChildB /&gt;</div><div class="line">  &lt;ChildC /&gt;</div><div class="line">&lt;<span class="regexp">/Fragment&gt;</span></div></pre></td></tr></table></figure></p>
+<p>或者：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;React.Fragment&gt;</div><div class="line">  &lt;ChildA /&gt;</div><div class="line">  &lt;ChildB /&gt;</div><div class="line">  &lt;ChildC /&gt;</div><div class="line">&lt;<span class="regexp">/React.Fragment&gt;</span></div></pre></td></tr></table></figure></p>
+<h3 id="JSX-Fragment-Syntax"><a href="#JSX-Fragment-Syntax" class="headerlink" title="JSX Fragment Syntax"></a>JSX Fragment Syntax</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> (</div><div class="line">    &lt;&gt;</div><div class="line">      Some text.</div><div class="line">      &lt;h2&gt;A heading&lt;<span class="regexp">/h2&gt;</span></div><div class="line"><span class="regexp">      More text.</span></div><div class="line"><span class="regexp">      &lt;h2&gt;Another heading&lt;/</span>h2&gt;</div><div class="line">      Even more text.</div><div class="line">    &lt;<span class="regexp">/&gt;</span></div><div class="line"><span class="regexp">  );</span></div><div class="line"><span class="regexp">&#125;</span></div></pre></td></tr></table></figure>
+<p>当编译时，&lt;&gt; 被转化为 <react.fragment>。</react.fragment></p>
+<p><strong>注意：&lt;&gt;&lt;/&gt; 并不接受任何属性，包括 key 属性。</strong></p>
+<p>如果需要使用有key值的Fragment，只能使用 <fragment> 组件。Fragment 只有唯一的一个属性：key。</fragment></p>
+<h2 id="React-v16：异常-错误处理"><a href="#React-v16：异常-错误处理" class="headerlink" title="React v16：异常/错误处理"></a>React v16：异常/错误处理</h2><p>过去，组件内部的JavaScript异常经常阻断React内部状态，并导致其在下一次渲染时触发了未知的隐藏错误。这些错误往往是由应用程序代码中之前的错误引起的，但React并未提供一种在组件内部优雅处理的方式，也不会从异常中恢复。</p>
+<h3 id="错误边界"><a href="#错误边界" class="headerlink" title="错误边界"></a>错误边界</h3><p>在讲新版本的错误处理之前，先了解错误边界这个概念。React v16引入了“错误边界（error boundary）”这一新概念为解决一个问题： UI部分发生的JavaScript异常不应该阻断整个应用。</p>
+<p>错误边界作为React组件，用以捕获在子组件树中任何地方的JavaScript异常，打印这些错误，并展示备用UI组件而非让组件树崩溃。<strong>错误边界会捕获渲染期间，在生命周期方法中以及在其整个树的构造函数中的异常。</strong>  </p>
+<h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>定义一个名称为 componentDidCatch(error, info) 的新生命周期方法，则类组件会成为错误边界：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ErrorBoundary</span> <span class="keyword">extends</span> <span class="title">React</span>.<span class="title">Component</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(props) &#123;</div><div class="line">    <span class="keyword">super</span>(props);</div><div class="line">    <span class="keyword">this</span>.state = &#123; <span class="attr">hasError</span>: <span class="literal">false</span> &#125;;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  componentDidCatch(error, info) &#123;</div><div class="line">    <span class="keyword">this</span>.setState(&#123; <span class="attr">hasError</span>: <span class="literal">true</span> &#125;);</div><div class="line">    logErrorToMyService(error, info);</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  render() &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.state.hasError) &#123;</div><div class="line">      <span class="keyword">return</span> &lt;h1&gt;Something went wrong.&lt;/h1&gt;;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span>.props.children;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>而后可作为一个正常组件进行使用：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;ErrorBoundary&gt;</div><div class="line">  &lt;MyWidget /&gt;</div><div class="line">&lt;<span class="regexp">/ErrorBoundary&gt;</span></div></pre></td></tr></table></figure></p>
+<p>注意：</p>
+<ul>
+<li>错误边界仅可以捕获组件树中的后代组件错误，一个错误边界无法捕获其自身的错误。</li>
+<li>若错误边界在渲染错误信息时失败，则该错误会传递至上一层最接近的错误边界。</li>
+</ul>
+<p>最后一点，这一改变有一个重要的意义：在React v16 中不是由错误边界引起的错误将会使得整个React组件树被卸载。  </p>
+<p>想要了解更多关于错误处理，参考：</p>
+<ul>
+<li><a href="https://doc.react-china.org/blog/2017/07/26/error-handling-in-react-16.html" target="_blank" rel="external">Error Handling in React 16</a></li>
+</ul>
+<h2 id="React-v16：Portals"><a href="#React-v16：Portals" class="headerlink" title="React v16：Portals"></a>React v16：Portals</h2><p>Portals 提供了一种很好的将子节点渲染到父组件以外的 DOM 节点的方式。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">render() &#123;</div><div class="line">  <span class="keyword">return</span> ReactDOM.createPortal(</div><div class="line">    <span class="keyword">this</span>.props.children,</div><div class="line">    domNode,</div><div class="line">  );</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>想要了解更多关于Portals，参考：</p>
+<ul>
+<li><a href="https://zhuanlan.zhihu.com/p/29880992" target="_blank" rel="external">传送门：React Portal</a></li>
+<li><a href="https://doc.react-china.org/docs/portals.html" target="_blank" rel="external">Portals</a></li>
+</ul>
+<h2 id="React-v16：更好的服务端渲染"><a href="#React-v16：更好的服务端渲染" class="headerlink" title="React v16：更好的服务端渲染"></a>React v16：更好的服务端渲染</h2><p>React v16 包含了一个完全重写的服务端渲染器。其是真的快。支持流，因此你能够更快地将数据发送到客户端。同时由于新的打包策略，即编译不再进行 process.env 检查。<br>想要了解更多关于服务端渲染，参考：</p>
+<ul>
+<li><a href="https://doc.react-china.org/docs/react-dom-server.html" target="_blank" rel="external">ReactDOMServer</a></li>
+</ul>
+<h2 id="React-v16：支持自定义DOM属性"><a href="#React-v16：支持自定义DOM属性" class="headerlink" title="React v16：支持自定义DOM属性"></a>React v16：支持自定义DOM属性</h2><p>React 现在会将自定义属性传递给DOM，而不是忽略不认识的HTML和SVG属性。<br>想要了解更多自定义DOM属性，参考：</p>
+<ul>
+<li><a href="https://reactjs.org/blog/2017/09/08/dom-attributes-in-react-16.html" target="_blank" rel="external">DOM Attributes in React 16
+</a></li>
+</ul>
+<h2 id="React-v16：减少文件体积"><a href="#React-v16：减少文件体积" class="headerlink" title="React v16：减少文件体积"></a>React v16：减少文件体积</h2><ul>
+<li>react 从20.7kb（gzip 后：6.9 kb）减至大小为 5.3 kb（gzip 后：2.2 kb）</li>
+<li>react-dom 从141 kb（gzip 后：42.9 kb）减至 103.7 kb（gzip 后：32.6 kb</li>
+<li>eact + react-dom 从 161.7 kb（gzip 后：49.8 kb）减至 109 kb（gzip 后：34.8 kb）</li>
+</ul>
+<h2 id="MIT协议"><a href="#MIT协议" class="headerlink" title="MIT协议"></a>MIT协议</h2><p>React 16使用 MIT协议。同时也为那些无法立刻升级的，在MIT协议下发布了React 15.6.2。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/React/" rel="tag"># React</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/07/httpcache/" rel="next" title="HTTP缓存学习笔记">
+                <i class="fa fa-chevron-left"></i> HTTP缓存学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/25/closure/" rel="prev" title="深入理解闭包">
+                深入理解闭包 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="leeper" />
+          <p class="site-author-name" itemprop="name">leeper</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+           
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：新核心架构"><span class="nav-number">1.</span> <span class="nav-text">React v16：新核心架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16-2-0：Fragments"><span class="nav-number">2.</span> <span class="nav-text">React v16.2.0：Fragments</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用-Fragments？"><span class="nav-number">2.1.</span> <span class="nav-text">为什么使用 Fragments？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#JSX-Fragment-Syntax"><span class="nav-number">2.2.</span> <span class="nav-text">JSX Fragment Syntax</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：异常-错误处理"><span class="nav-number">3.</span> <span class="nav-text">React v16：异常/错误处理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#错误边界"><span class="nav-number">3.1.</span> <span class="nav-text">错误边界</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误处理"><span class="nav-number">3.2.</span> <span class="nav-text">错误处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：Portals"><span class="nav-number">4.</span> <span class="nav-text">React v16：Portals</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：更好的服务端渲染"><span class="nav-number">5.</span> <span class="nav-text">React v16：更好的服务端渲染</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：支持自定义DOM属性"><span class="nav-number">6.</span> <span class="nav-text">React v16：支持自定义DOM属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#React-v16：减少文件体积"><span class="nav-number">7.</span> <span class="nav-text">React v16：减少文件体积</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MIT协议"><span class="nav-number">8.</span> <span class="nav-text">MIT协议</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">leeper</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
